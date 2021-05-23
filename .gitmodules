@@ -1,0 +1,9 @@
+[submodule "software/grenedalf"]
+	path = software/grenedalf
+	url = https://github.com/lczech/grenedalf.git
+[submodule "software/popoolation"]
+	path = software/popoolation
+	url = https://github.com/lczech/popoolation.git
+[submodule "software/popoolation2"]
+	path = software/popoolation2
+	url = https://github.com/lczech/popoolation2.git
