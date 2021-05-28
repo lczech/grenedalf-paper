@@ -8,7 +8,7 @@ mkdir -p fst
 START=$(date +%s.%N)
 echo "Start `date`"
 
-perl ../software/popoolation2/fst-sliding.pl \
+perl ../../software/popoolation2/fst-sliding.pl \
     --input ${DATA} \
     --output "fst/$(basename ${DATA}).fst" \
     --suppress-noninformative \

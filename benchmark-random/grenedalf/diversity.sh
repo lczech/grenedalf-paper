@@ -6,7 +6,7 @@ mkdir -p diversity
 START=$(date +%s.%N)
 echo "Start `date`"
 
-../software/grenedalf/bin/grenedalf diversity \
+../../software/grenedalf/bin/grenedalf diversity \
     --threads 1 \
     --allow-file-overwriting \
     --out-dir diversity \

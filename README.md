@@ -7,5 +7,11 @@ We here provide tests scripts to benchmark [grenedalf](https://github.com/lczech
 For these tests to run, you need to make sure that all tools in `software` are
 working by [downloading the git submodules](https://www.atlassian.com/git/tutorials/git-submodule), 
 and in particular compile grenedalf first.
-Then, generate the random test data as described in `data`.
-Lastly, call the `measure.sh` script to run the benchmarks.
+
+In particular:
+
+  * `benchmark-random`: Benchmarks based on randomly generated files.
+  * `benchmark-real`: Benchmarks based on real world data.
+  * `bug-exam`: Examination of the two bugs in PoPoolation Tajima's D implementation.
+
+See the subdirectories for details.

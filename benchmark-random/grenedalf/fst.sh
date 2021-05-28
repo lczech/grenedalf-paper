@@ -6,7 +6,7 @@ mkdir -p fst
 START=$(date +%s.%N)
 echo "Start `date`"
 
-../software/grenedalf/bin/grenedalf fst \
+../../software/grenedalf/bin/grenedalf fst \
     --threads 1 \
     --allow-file-overwriting \
     --out-dir fst \

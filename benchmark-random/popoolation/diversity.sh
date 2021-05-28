@@ -10,7 +10,7 @@ mkdir -p ${MEASURE}
 START=$(date +%s.%N)
 echo "Start `date`"
 
-perl ../software/popoolation/Variance-sliding.pl \
+perl ../../software/popoolation/Variance-sliding.pl \
     --input ${DATA} \
     --output "${MEASURE}/$(basename ${DATA}).${MEASURE}" \
     --measure ${MEASURE} \
