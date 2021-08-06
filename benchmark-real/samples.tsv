@@ -1,0 +1,3 @@
+sample	unit	platform	fq1	fq2
+S1	1	-	/home/lucas/Projects/grenedalf-paper/benchmark-real/samples/MLFH10_2_20180215_CKDL210000711-1a-AK11638-AK8965_HFLJFCCX2_L6_1.fq.gz	/home/lucas/Projects/grenedalf-paper/benchmark-real/samples/MLFH10_2_20180215_CKDL210000711-1a-AK11638-AK8965_HFLJFCCX2_L6_2.fq.gz
+S2	1	-	/home/lucas/Projects/grenedalf-paper/benchmark-real/samples/MLFH10_2_20190206_CKDL210000711-1a-AK9787-AK8965_HFLJFCCX2_L6_1.fq.gz	/home/lucas/Projects/grenedalf-paper/benchmark-real/samples/MLFH10_2_20190206_CKDL210000711-1a-AK9787-AK8965_HFLJFCCX2_L6_2.fq.gz
