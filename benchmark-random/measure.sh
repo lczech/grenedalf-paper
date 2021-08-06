@@ -132,10 +132,10 @@ function run_pileup() {
     echo -n "$1" >> "measure_time.csv"
     echo -n "$1" >> "measure_memory.csv"
 
-    # ITERATIONS=1
-    # run_tests $1 random-pileup-1000      "${DATA_DIR}/random-1000.pileup"
-    # run_tests $1 random-pileup-2000      "${DATA_DIR}/random-2000.pileup"
-    # run_tests $1 random-pileup-5000      "${DATA_DIR}/random-5000.pileup"
+    # # ITERATIONS=1
+    run_tests $1 random-pileup-1000      "${DATA_DIR}/random-1000.pileup"
+    run_tests $1 random-pileup-2000      "${DATA_DIR}/random-2000.pileup"
+    run_tests $1 random-pileup-5000      "${DATA_DIR}/random-5000.pileup"
     run_tests $1 random-pileup-10000     "${DATA_DIR}/random-10000.pileup"
     run_tests $1 random-pileup-20000     "${DATA_DIR}/random-20000.pileup"
     run_tests $1 random-pileup-50000     "${DATA_DIR}/random-50000.pileup"
@@ -148,7 +148,9 @@ function run_pileup() {
     # ITERATIONS=1
     run_tests $1 random-pileup-5000000   "${DATA_DIR}/random-5000000.pileup"
     run_tests $1 random-pileup-10000000  "${DATA_DIR}/random-10000000.pileup"
-    # ITERATIONS=5
+    run_tests $1 random-pileup-20000000  "${DATA_DIR}/random-20000000.pileup"
+    run_tests $1 random-pileup-50000000  "${DATA_DIR}/random-50000000.pileup"
+    run_tests $1 random-pileup-100000000  "${DATA_DIR}/random-100000000.pileup"
 
     echo >> "measure_time.csv"
     echo >> "measure_memory.csv"
@@ -161,9 +163,9 @@ function run_sync() {
     echo -n "$1" >> "measure_memory.csv"
 
     # ITERATIONS=1
-    # run_tests $1 random-sync-1000      "${DATA_DIR}/random-1000.sync"
-    # run_tests $1 random-sync-2000      "${DATA_DIR}/random-2000.sync"
-    # run_tests $1 random-sync-5000      "${DATA_DIR}/random-5000.sync"
+    run_tests $1 random-sync-1000      "${DATA_DIR}/random-1000.sync"
+    run_tests $1 random-sync-2000      "${DATA_DIR}/random-2000.sync"
+    run_tests $1 random-sync-5000      "${DATA_DIR}/random-5000.sync"
     run_tests $1 random-sync-10000     "${DATA_DIR}/random-10000.sync"
     run_tests $1 random-sync-20000     "${DATA_DIR}/random-20000.sync"
     run_tests $1 random-sync-50000     "${DATA_DIR}/random-50000.sync"
@@ -176,7 +178,9 @@ function run_sync() {
     # ITERATIONS=1
     run_tests $1 random-sync-5000000   "${DATA_DIR}/random-5000000.sync"
     run_tests $1 random-sync-10000000  "${DATA_DIR}/random-10000000.sync"
-    # # ITERATIONS=5
+    run_tests $1 random-sync-20000000  "${DATA_DIR}/random-20000000.sync"
+    run_tests $1 random-sync-50000000  "${DATA_DIR}/random-50000000.sync"
+    run_tests $1 random-sync-100000000  "${DATA_DIR}/random-100000000.sync"
 
     echo >> "measure_time.csv"
     echo >> "measure_memory.csv"
@@ -193,15 +197,15 @@ if [ $# -eq 0 ] ; then
     ITERATIONS=5
     run_pileup grenedalf/diversity.sh
     ITERATIONS=1
-    run_pileup popoolation/pi.sh
-    run_pileup popoolation/theta.sh
+    # run_pileup popoolation/pi.sh
+    # run_pileup popoolation/theta.sh
     run_pileup popoolation/d.sh
 
-    # F_ST
-    ITERATIONS=5
-    run_sync grenedalf/fst.sh
-    ITERATIONS=1
-    run_sync popoolation/fst.sh
+    # # F_ST
+    # ITERATIONS=5
+    # run_sync grenedalf/fst.sh
+    # ITERATIONS=1
+    # run_sync popoolation/fst.sh
 
 else
     #run_tests ${1} ${2}
