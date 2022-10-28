@@ -49,6 +49,7 @@ mkdir -p "samtools-logs"
 mkdir -p "../subsets-bam"
 mkdir -p "../subsets-mpileup"
 mkdir -p "../subsets-sync"
+mkdir -p "../subsets-sync-gz"
 mkdir -p "../subsets-table"
 
 while read -r line; do
@@ -120,6 +121,23 @@ while read -r line; do
         ${GRENEDALF} sync-file --sam-path ${chunkbam1} --sam-path ${chunkbam2} \
             --allow-file-overwriting > "grenedalf-logs/sync-S1S2-${chunk}.log" 2>&1
         mv "counts.sync" ${chunksync12}
+    fi
+
+    # we also do zipped sync files, as grenedalf can do that!
+    chunksyncgz1="../subsets-sync-gz/S1-${chunk}.sync.gz"
+    chunksyncgz2="../subsets-sync-gz/S2-${chunk}.sync.gz"
+    chunksyncgz12="../subsets-sync-gz/S1S2-${chunk}.sync.gz"
+    if [ ! -f ${chunksyncgz1} ] ; then
+        echo "    gzip sync S1"
+        cat ${chunksync1} | gzip > ${chunksyncgz1}
+    fi
+    if [ ! -f ${chunksyncgz2} ] ; then
+        echo "    gzip sync S2"
+        cat ${chunksync2} | gzip > ${chunksyncgz2}
+    fi
+    if [ ! -f ${chunksyncgz12} ] ; then
+        echo "    gzip sync S1S2"
+        cat ${chunksync12} | gzip > ${chunksyncgz12}
     fi
 
     # aaaand frequency tables, same deal

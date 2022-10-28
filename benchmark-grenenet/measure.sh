@@ -234,6 +234,12 @@ function run_sync_S1S2() {
         "../subsets-sync/S1S2-\${CHUNK}.sync"
 }
 
+function run_sync_S1S2gz() {
+    run_chunk_tests \
+        "${1}" "S1S2-\${CHUNK}-gz" "\${CHUNK}" \
+        "../subsets-sync-gz/S1S2-\${CHUNK}.sync.gz"
+}
+
 function run_sync_S1_S2() {
     run_chunk_tests \
         "${1}" "S1_S2-\${CHUNK}" "\${CHUNK}" \
@@ -272,11 +278,11 @@ echo
 echo "Command                       Data                                   Size         Min         Max         Avg         Mem        User          Wall "
 
 # Init result files
-echo "Tool" > measure_time.csv
-echo "Tool" > measure_memory.csv
+echo -n "Tool" > measure_time.csv
+echo -n "Tool" > measure_memory.csv
 for c in $CHUNKS ; do
-    echo "\t${c}" >> measure_time.csv
-    echo "\t${c}" >> measure_memory.csv
+    echo -ne "\t${c}" >> measure_time.csv
+    echo -ne "\t${c}" >> measure_memory.csv
 done
 echo >> "measure_time.csv"
 echo >> "measure_memory.csv"
@@ -284,29 +290,30 @@ echo >> "measure_memory.csv"
 # Run either all known scripts, or the one provided.
 if [ $# -eq 0 ] ; then
 
-    # Conversion
-    run_bam_S1_S2 samtools/mpileup.sh
-    run_bam_S1_S2 grenedalf/sync-bam.sh
-    run_mpileup_S1S2 grenedalf/sync-mpileup.sh
-    run_mpileup_S1S2 popoolation/sync-perl.sh
-    run_mpileup_S1S2 popoolation/sync-java.sh
-
-    # Diversity
-    run_bam_S1 grenedalf/diversity-bam.sh
-    run_mpileup_S1 grenedalf/diversity-mpileup.sh
-    run_sync_S1 grenedalf/diversity-sync.sh
-    run_mpileup_S1 popoolation/pi.sh
-    run_mpileup_S1 popoolation/theta.sh
-    run_mpileup_S1 popoolation/d.sh
+    # # Conversion
+    # run_bam_S1_S2 samtools/mpileup.sh
+    # run_bam_S1_S2 grenedalf/sync-bam.sh
+    # run_mpileup_S1S2 grenedalf/sync-mpileup.sh
+    # run_mpileup_S1S2 popoolation/sync-perl.sh
+    # run_mpileup_S1S2 popoolation/sync-java.sh
+    #
+    # # Diversity
+    # run_bam_S1 grenedalf/diversity-bam.sh
+    # run_mpileup_S1 grenedalf/diversity-mpileup.sh
+    # run_sync_S1 grenedalf/diversity-sync.sh
+    # run_mpileup_S1 popoolation/pi.sh
+    # run_mpileup_S1 popoolation/theta.sh
+    # run_mpileup_S1 popoolation/d.sh
 
     # F_ST
     run_bam_S1_S2 grenedalf/fst-bam.sh
     run_mpileup_S1S2 grenedalf/fst-mpileup.sh
-    run_mpileup_S1_S2 grenedalf/fst-mpileup.sh
+    # run_mpileup_S1_S2 grenedalf/fst-mpileup.sh
     run_sync_S1S2 grenedalf/fst-sync.sh
-    run_sync_S1_S2 grenedalf/fst-sync.sh
-    run_sync_S1S2 poolfstat/fst.sh
-    run_sync_S1S2 popoolation/fst.sh
+    run_sync_S1S2gz grenedalf/fst-sync.sh
+    # run_sync_S1_S2 grenedalf/fst-sync.sh
+    # run_sync_S1S2 poolfstat/fst.sh
+    # run_sync_S1S2 popoolation/fst.sh
 
 else
     #run_test ${1} ${2}

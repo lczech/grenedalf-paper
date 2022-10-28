@@ -26,6 +26,10 @@ mem_data = pd.read_csv( mem_file, sep="\t" ) #, index_col=0 )
 #print tmr_data
 #print mem_data
 
+# Sort here. Grenedalf luckily is the first in the alphabet, so this is easy.
+tmr_data = tmr_data.sort_values(tmr_data.columns[0])
+mem_data = mem_data.sort_values(mem_data.columns[0])
+
 # Types of tests that we have. Dict from name (title of the plot)
 # to the lines in the measure scripts that we need to look for.
 testcases = {
@@ -44,14 +48,14 @@ line_colors = {
     "grenedalf/fst-sync": "k",
     "grenedalf/sync-bam": "k",
     "grenedalf/sync-mpileup": "k",
-    "poolfstat/fst": "C5",
-    "popoolation/d": "C0",
-    "popoolation/fst": "C6",
-    "popoolation/pi": "C2",
+    "poolfstat/fst": "C0",
+    "popoolation/d": "C3",
+    "popoolation/fst": "C3",
+    "popoolation/pi": "C3",
     "popoolation/sync-java": "C3",
     "popoolation/sync-perl": "C3",
-    "popoolation/theta": "C1",
-    "samtools/mpileup": "C4"
+    "popoolation/theta": "C3",
+    "samtools/mpileup": "C2"
 }
 
 plotnum = 1
@@ -60,7 +64,7 @@ def plot_test(testname, data, measure, scale):
     global line_colors
     global plotnum
 
-    min_x = 0 # first element. 0 based
+    min_x = 3 # first element. 0 based
     max_x = 16 # past the last element. 0 based
     title = testname
     if measure == "tmr":
@@ -71,7 +75,8 @@ def plot_test(testname, data, measure, scale):
     # Make a new dataframe with just the needed content.
     sub_data = pd.DataFrame()
     line_styles = list()
-    grenedalf_index = -1
+    markers = list()
+    grenedalf_indices = []
     for index, row in data.iterrows():
         found = False
         for tool in testcases[testname]:
@@ -93,12 +98,12 @@ def plot_test(testname, data, measure, scale):
 
         sub_data[name] = data
 
-        # Make a special style for grenedalf: solid line at the front of the list,
-        # because we are going to move the grenedalf column to the front as well.
+        # Make a special style for grenedalf: solid line.
         # All other tools get a dashed line.
         if "grenedalf" in name:
-            line_styles.insert(0, "")
-            grenedalf_index = len(list(sub_data))-1
+            line_styles.append("")
+            # line_styles.insert(0, "")
+            grenedalf_indices.append(len(list(sub_data))-1)
         else:
             line_styles.append((5,2))
             # if "fst" in name:
@@ -108,13 +113,31 @@ def plot_test(testname, data, measure, scale):
             #     # We do the offset in Inkscape though, as Seaborn/Matplotlib refuse to do that.
             #     line_styles.append((2,7))
 
+        # Different marker types for different input file types or processing tools.
+        # Bit messy, but gets the job done.
+        if "-sync" in name:
+            markers.append('s')
+        elif "-mpileup" in name:
+            markers.append('^')
+        elif "-bam" in name:
+            markers.append('>')
+        elif "-java" in name:
+            markers.append('D')
+        elif "-perl" in name:
+            markers.append('o')
+        else:
+            markers.append('o')
+
     # print(sub_data)
     # print(line_styles)
 
     # Move grenedalf column to front. It's the one we are interested in here.
-    cols = list(sub_data)
-    cols.insert(0, cols.pop(grenedalf_index))
-    sub_data = sub_data.loc[:, cols]
+    # --> Nope, too tricky to reorder the dashes and markers as well... we just sort the table
+    #     in the beginning instead!
+    # for grenedalf_index in grenedalf_indices:
+    #     cols = list(sub_data)
+    #     cols.insert(0, cols.pop(grenedalf_index))
+    #     sub_data = sub_data.loc[:, cols]
 
     # Store row names, and rename them later. Seaborn does not want renaming upfront.
     # size_names = [ "10K", "20K", "50K", "100K", "200K", "500K", "1M", "2M", "5M", "10M" ]
@@ -123,8 +146,8 @@ def plot_test(testname, data, measure, scale):
 
     # Make the plot. Our data set sizes are roughly exponential,
     # so the x-axis already is kind of log scaled. Do the same for the y-axis.
-    plt.figure( plotnum )
-    ax = sns.lineplot( data=sub_data, marker="o", dashes=line_styles, palette=line_colors )
+    plt.figure( plotnum, figsize=(8,6) )
+    ax = sns.lineplot( data=sub_data, markers=markers, dashes=line_styles, palette=line_colors )
     #dashes=False
     if scale == "log":
         ax.set_yscale('log')
@@ -132,6 +155,7 @@ def plot_test(testname, data, measure, scale):
         raise Exception( "Invalid scale" )
     ax.yaxis.grid(True, which='major')
     # plt.tight_layout()
+    plt.legend(loc='upper left')
 
     # # Why is it so damn complicated to just set an offset to the dashes?!
     # Screw it, using Inkscape for that!
@@ -142,7 +166,7 @@ def plot_test(testname, data, measure, scale):
     # Nameing the plot and the axis.
     ax.set_title( title )
     #ax.set_xlabel('Dataset Size  [bytes]')
-    ax.set_xlabel('Dataset Size  [rows]')
+    ax.set_xlabel('Dataset Size  [genome positions]')
     if measure == "tmr":
         ax.set_ylabel('Runtime  [s]')
 
@@ -164,8 +188,14 @@ def plot_test(testname, data, measure, scale):
     #ax.xaxis.grid(False, which='minor')
 
     # Save to files
-    plt.savefig("figures_png/" + measure + "_" + testname + "_" + scale + ".png", format='png')
-    plt.savefig("figures_svg/" + measure + "_" + testname + "_" + scale + ".svg", format='svg')
+    plt.savefig(
+        "figures_png/" + measure + "_" + testname + "_" + scale + ".png",
+        format='png', bbox_inches="tight"
+    )
+    plt.savefig(
+        "figures_svg/" + measure + "_" + testname + "_" + scale + ".svg",
+        format='svg', bbox_inches="tight"
+    )
     plt.close( plotnum )
     plotnum += 1
 
