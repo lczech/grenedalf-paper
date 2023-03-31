@@ -1,25 +1,30 @@
 #!/bin/bash
 
-DATA=$1
-
 mkdir -p fst
+mkdir -p logs
 # rm fst/*
 
-START=$(date +%s.%N)
+# Get args
+FILE=$1
+WINDOW=$2
+BASENAME=$(basename $1)
+
 echo "Start `date`"
+START=$(date +%s.%N)
 
 perl ../../software/popoolation2/fst-sliding.pl \
-    --input ${DATA} \
-    --output "fst/$(basename ${DATA}).fst" \
+    --input ${FILE} \
+    --output "fst/fst-${WINDOW}-${BASENAME}.fst" \
     --suppress-noninformative \
-    --min-count 6 \
-    --min-coverage 50 \
+    --window-size ${WINDOW} \
+    --step-size ${WINDOW} \
+    --pool-size 100 \
     --max-coverage 200 \
-    --min-covered-fraction 1 \
-    --window-size 1 \
-    --step-size 1 \
-    --pool-size 100
-    > fst/$(basename ${DATA}).log 2>&1
+    > logs/fst-${WINDOW}-${BASENAME}.log 2>&1
+
+    # --min-coverage 50 \
+    # --min-count 6 \
+    # --min-covered-fraction 1 \
 
 END=$(date +%s.%N)
 DIFF=$(echo "$END - $START" | bc)

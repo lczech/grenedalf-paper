@@ -1,21 +1,47 @@
 #!/bin/bash
 
 mkdir -p fst
+mkdir -p logs
 # rm fst/*
 
-START=$(date +%s.%N)
-echo "Start `date`"
+# Get args
+FILE=$1
+BASENAME=$(basename $1)
+WINDOW=$2
 
-../../software/grenedalf/bin/grenedalf fst \
-    --threads 1 \
-    --allow-file-overwriting \
-    --out-dir fst \
-    --file-suffix "_$(basename $1)" \
-    --sync-file $1 \
-    --pool-sizes 100,100 \
-    --window-width 1 \
-    --omit-na-windows \
-    > fst/fst_$(basename $1).log 2>&1
+echo "Start `date`"
+START=$(date +%s.%N)
+
+if [[ ${WINDOW} == 0 ]]; then
+
+    ../../software/grenedalf/bin/grenedalf fst \
+        --sync-path ${FILE} \
+        --window-type genome \
+        --pool-sizes 100,100 \
+        --method kofler \
+        --omit-na-windows \
+        --out-dir fst \
+        --file-suffix "-${WINDOW}-${BASENAME}" \
+        --allow-file-overwriting \
+        --threads 1 \
+        > logs/fst-${WINDOW}-${BASENAME}.log 2>&1
+
+else
+
+    ../../software/grenedalf/bin/grenedalf fst \
+        --sync-path ${FILE} \
+        --window-type sliding \
+        --window-sliding-width ${WINDOW} \
+        --pool-sizes 100,100 \
+        --method kofler \
+        --omit-na-windows \
+        --out-dir fst \
+        --file-suffix "-${WINDOW}-${BASENAME}" \
+        --allow-file-overwriting \
+        --threads 1 \
+        > logs/fst-${WINDOW}-${BASENAME}.log 2>&1
+
+fi
 
 END=$(date +%s.%N)
 DIFF=$(echo "$END - $START" | bc)

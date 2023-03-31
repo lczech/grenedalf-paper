@@ -1,3 +1,5 @@
 benchmark-grenenet/TAIR10_chr_all.fa*
 benchmark-grenenet/data/
 bug-exam/*.zip
+benchmark-random/data/pileup/
+benchmark-random/data/sync/

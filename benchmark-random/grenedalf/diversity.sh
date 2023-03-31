@@ -1,21 +1,31 @@
 #!/bin/bash
 
 mkdir -p diversity
+mkdir -p logs
 # rm diversity/*
 
-START=$(date +%s.%N)
+# Get args
+FILE=$1
+BASENAME=$(basename $1)
+WINDOW=$2
+
 echo "Start `date`"
+START=$(date +%s.%N)
 
 ../../software/grenedalf/bin/grenedalf diversity \
-    --threads 1 \
-    --allow-file-overwriting \
-    --out-dir diversity \
-    --file-suffix "_$(basename $1)" \
-    --pileup-file $1 \
+    --pileup-path ${FILE} \
+    --window-type sliding \
+    --window-sliding-width ${WINDOW} \
+    --filter-sample-min-count 2 \
+    --filter-sample-min-coverage 4 \
+    --filter-sample-max-coverage 1000000 \
     --pool-sizes 100 \
-    --window-width 1000 \
     --popoolation-corrected-tajimas-d \
-    > diversity/diversity_$(basename $1).log 2>&1
+    --out-dir diversity \
+    --file-suffix "-${WINDOW}-${BASENAME}" \
+    --allow-file-overwriting \
+    --threads 1 \
+    > logs/diversity-${WINDOW}-${BASENAME}.log 2>&1
 
 END=$(date +%s.%N)
 DIFF=$(echo "$END - $START" | bc)

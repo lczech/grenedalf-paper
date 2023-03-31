@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./diversity.sh $1 "d"
+./diversity.sh $1 $2 "d"
