@@ -60,6 +60,7 @@ function run_test() {
 
     for i in $(seq 1 ${ITERATIONS}); do
         printf "%3u/%-3u" ${i} ${ITERATIONS}
+        sleep 1
 
         # Run test and measure time and memory.
         # This is where the actual script is being run.
@@ -164,7 +165,7 @@ echo -e "Samples\tgrenedalf\tpoolfstat\tpopoolation2" > measure_memory.csv
 # we create the sync files on the fly, and might delete them afterwards,
 # as they otherwise take up too much disk space for my poor little laptop ;-)
 # that is a bit wasteful when repeating the measurement, but we can live with it.
-for NUMSAM in `seq 2 5` ; do
+for NUMSAM in `seq 7 10` ; do
     #echo `date`
 
     # select the first n samples, and create a sync file from them

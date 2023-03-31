@@ -1,17 +1,24 @@
 # grenedalf-paper
+
 Code for tests and benchmarks of the paper on our tool [grenedalf](https://github.com/lczech/grenedalf)
 
-We here provide tests scripts to benchmark [grenedalf](https://github.com/lczech/grenedalf) against 
-[PoPoolation 1](https://sourceforge.net/projects/popoolation/) and 
-[PoPoolation 2](https://sourceforge.net/projects/popoolation/).
-For these tests to run, you need to make sure that all tools in `software` are
-working by [downloading the git submodules](https://www.atlassian.com/git/tutorials/git-submodule), 
-and in particular compile grenedalf first.
+We here provide tests scripts to benchmark [grenedalf](https://github.com/lczech/grenedalf) against existing tools:
 
-In particular:
+  * [grenedalf](https://github.com/lczech/grenedalf)
+  * [PoPoolation 1](https://sourceforge.net/projects/popoolation/)
+  * [PoPoolation 2](https://sourceforge.net/projects/popoolation/)
+  * [poolfstat](https://cran.r-project.org/web/packages/poolfstat/index.html)
+  
+See the `software` directory here for their setup.
 
+With all tools available, we run the following tests here:
+
+  * `benchmark-grenenet`:
   * `benchmark-random`: Benchmarks based on randomly generated files.
-  * `benchmark-real`: Benchmarks based on real world data.
+  
+Furthermore, we have some auxiliary tests and comparisons:
+  
+  * `benchmark-real`: Quick test to assess overall gain of grenedalf for our GrENE-net project.
   * `bug-exam`: Examination of the two bugs in PoPoolation Tajima's D implementation.
 
-See the subdirectories for details.
+See the respective subdirectories for details.
