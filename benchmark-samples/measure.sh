@@ -165,7 +165,7 @@ echo -e "Samples\tgrenedalf\tpoolfstat\tpopoolation2" > measure_memory.csv
 # we create the sync files on the fly, and might delete them afterwards,
 # as they otherwise take up too much disk space for my poor little laptop ;-)
 # that is a bit wasteful when repeating the measurement, but we can live with it.
-for NUMSAM in `seq 7 10` ; do
+for NUMSAM in `seq 2 10` ; do
     #echo `date`
 
     # select the first n samples, and create a sync file from them
@@ -192,7 +192,7 @@ for NUMSAM in `seq 7 10` ; do
     run_test "popoolation/fst.sh"      "Samples-${NUMSAM}" "${NUMSAM}" "../sample-sync/counts-${NUMSAM}.sync"
     
     # remove file again to save disk space
-    #rm "sample-sync/counts-${NUMSAM}.sync"
+    rm "sample-sync/counts-${NUMSAM}.sync"
 
     echo >> "measure_time.csv"
     echo >> "measure_memory.csv"   
@@ -221,11 +221,9 @@ function transpose() {
             }
             print str
         }
-    }' $1 > $1.tmp
-    rm $1
-    mv $1.tmp $1
+    }' $1 > $2
 }
 
-transpose "measure_time.csv"
-transpose "measure_memory.csv"  
+transpose "measure_time.csv" "measure_time_transposed.csv"
+transpose "measure_memory.csv" "measure_memory_transposed.csv"
 

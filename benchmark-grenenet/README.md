@@ -1,4 +1,4 @@
-# Real-world benchmarks using samples from the GrENE-net dataset
+# Benchmark on real-world data with increasing number of positions in the files
 
 Here, we benchmark the tools using subsets of two of our GrENE-net samples,
 so that we can assess the scaling of grenedalf and other tools

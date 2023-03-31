@@ -7,7 +7,7 @@
 # Change to test dir. This ensures that the script can be called from any directory.
 cd "$(dirname "$0")"
 
-GRENEDALF="/home/lucas/Dropbox/GitHub/grenedalf/bin/grenedalf"
+GRENEDALF="../software/grenedalf/bin/grenedalf"
 mkdir -p "grenedalf-logs"
 
 # directory with the samples we are using

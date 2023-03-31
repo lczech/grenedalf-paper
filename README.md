@@ -13,8 +13,9 @@ See the `software` directory here for their setup.
 
 With all tools available, we run the following tests here:
 
-  * `benchmark-grenenet`:
-  * `benchmark-random`: Benchmarks based on randomly generated files.
+  * `benchmark-random`: Simple benchmarks based on randomly generated files, as a lower boundary.
+  * `benchmark-grenenet`: Benchmarks on real-world data from GrENE-net, subsetting one or two files to increasing numbers of positions to show scaling wrt genome length.
+  * `benchmark-samples`: Benchmarks on real-world data from GrENE-net, increasing the number of files to show scaling wrt number of samples.
   
 Furthermore, we have some auxiliary tests and comparisons:
   
