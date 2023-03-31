@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-# we want chunks of the a.th. genome of specific lengths, for our speed testing.
-# use the information from the TAIR reference fai to figure out which chromosomes and ranges are needed to achieve these chunks.
+# We want chunks of the A.thaliana genome of specific lengths, for our speed testing.
+# Use the information from the TAIR reference fai to figure out which chromosomes and ranges are needed to achieve these chunks.
 
 
 # chunks that we want:

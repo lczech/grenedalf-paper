@@ -8,6 +8,7 @@ GRENEDALF="/home/lucas/Dropbox/GitHub/grenedalf/bin/grenedalf"
 bam1="/home/lucas/Projects/grenephase1/mapped/MLFH010120200420-1.sorted.bam"
 bam2="/home/lucas/Projects/grenephase1/mapped/MLFH010420180518-1.sorted.bam"
 FASTA="../TAIR10_chr_all.fa"
+DATA="../data"
 
 # We use the fai file of the TAIR10 reference genome to define regions to match with our expected sizes:
 # 1000 2000 5000 10000 20000 50000 100000 200000 500000 1000000 2000000 5000000 10000000 20000000 50000000 100000000
@@ -40,17 +41,17 @@ fi
 # create the dirs where we output stuff
 # rm -rf "grenedalf-logs"
 # rm -rf "samtools-logs"
-# rm -rf "../subsets-bam"
-# rm -rf "../subsets-mpileup"
-# rm -rf "../subsets-sync"
-# rm -rf "../subsets-table"
+# rm -rf "${DATA}/subsets-bam"
+# rm -rf "${DATA}/subsets-mpileup"
+# rm -rf "${DATA}/subsets-sync"
+# rm -rf "${DATA}/subsets-table"
 mkdir -p "grenedalf-logs"
 mkdir -p "samtools-logs"
-mkdir -p "../subsets-bam"
-mkdir -p "../subsets-mpileup"
-mkdir -p "../subsets-sync"
-mkdir -p "../subsets-sync-gz"
-mkdir -p "../subsets-table"
+mkdir -p "${DATA}/subsets-bam"
+mkdir -p "${DATA}/subsets-mpileup"
+mkdir -p "${DATA}/subsets-sync"
+mkdir -p "${DATA}/subsets-sync-gz"
+mkdir -p "${DATA}/subsets-table"
 
 while read -r line; do
 
@@ -59,8 +60,8 @@ while read -r line; do
     echo "processing $chunk"
 
     # output bam files with chunks of the data
-    chunkbam1="../subsets-bam/S1-${chunk}.bam"
-    chunkbam2="../subsets-bam/S2-${chunk}.bam"
+    chunkbam1="${DATA}/subsets-bam/S1-${chunk}.bam"
+    chunkbam2="${DATA}/subsets-bam/S2-${chunk}.bam"
 
     # create subset bam files with up to the chunk regions of content
     # apparently, the documented long form options do not work with my version of samtools...
@@ -80,9 +81,9 @@ while read -r line; do
     # we will also create some of these files again during the speed tests, but do that in
     # different directories, in order to have the tests be independent of their order,
     # and be able to execute them independently from each other.
-    chunkmpileup1="../subsets-mpileup/S1-${chunk}.mpileup"
-    chunkmpileup2="../subsets-mpileup/S2-${chunk}.mpileup"
-    chunkmpileup12="../subsets-mpileup/S1S2-${chunk}.mpileup"
+    chunkmpileup1="${DATA}/subsets-mpileup/S1-${chunk}.mpileup"
+    chunkmpileup2="${DATA}/subsets-mpileup/S2-${chunk}.mpileup"
+    chunkmpileup12="${DATA}/subsets-mpileup/S1S2-${chunk}.mpileup"
     if [ ! -f ${chunkmpileup1} ] ; then
         echo "    samtools mpileup S1"
         samtools mpileup -f ${FASTA} -R -B -o "${chunkmpileup1}" ${chunkbam1} \
@@ -101,9 +102,9 @@ while read -r line; do
 
     # for the same reasons, also create sync files for all files.
     # here, we also combine them into one, for FST.
-    chunksync1="../subsets-sync/S1-${chunk}.sync"
-    chunksync2="../subsets-sync/S2-${chunk}.sync"
-    chunksync12="../subsets-sync/S1S2-${chunk}.sync"
+    chunksync1="${DATA}/subsets-sync/S1-${chunk}.sync"
+    chunksync2="${DATA}/subsets-sync/S2-${chunk}.sync"
+    chunksync12="${DATA}/subsets-sync/S1S2-${chunk}.sync"
     if [ ! -f ${chunksync1} ] ; then
         echo "    grenedalf sync S1"
         ${GRENEDALF} sync-file --sam-path ${chunkbam1} --allow-file-overwriting \
@@ -124,9 +125,9 @@ while read -r line; do
     fi
 
     # we also do zipped sync files, as grenedalf can do that!
-    chunksyncgz1="../subsets-sync-gz/S1-${chunk}.sync.gz"
-    chunksyncgz2="../subsets-sync-gz/S2-${chunk}.sync.gz"
-    chunksyncgz12="../subsets-sync-gz/S1S2-${chunk}.sync.gz"
+    chunksyncgz1="${DATA}/subsets-sync-gz/S1-${chunk}.sync.gz"
+    chunksyncgz2="${DATA}/subsets-sync-gz/S2-${chunk}.sync.gz"
+    chunksyncgz12="${DATA}/subsets-sync-gz/S1S2-${chunk}.sync.gz"
     if [ ! -f ${chunksyncgz1} ] ; then
         echo "    gzip sync S1"
         cat ${chunksync1} | gzip > ${chunksyncgz1}
@@ -141,9 +142,9 @@ while read -r line; do
     fi
 
     # aaaand frequency tables, same deal
-    chunktable1="../subsets-table/S1-${chunk}.csv"
-    chunktable2="../subsets-table/S2-${chunk}.csv"
-    chunktable12="../subsets-table/S1S2-${chunk}.csv"
+    chunktable1="${DATA}/subsets-table/S1-${chunk}.csv"
+    chunktable2="${DATA}/subsets-table/S2-${chunk}.csv"
+    chunktable12="${DATA}/subsets-table/S1S2-${chunk}.csv"
     if [ ! -f ${chunktable1} ] ; then
         echo "    grenedalf table S1"
         ${GRENEDALF} frequency --write-sample-counts --sam-path ${chunkbam1} \
