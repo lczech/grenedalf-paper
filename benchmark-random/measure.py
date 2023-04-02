@@ -41,3 +41,6 @@ run_suite( sizes, "popoolation/fst.sh", { "window": 100000000 })
 run_suite( sizes, "poolfstat/fst.sh", { "window": 0 })
 run_suite( sizes, "poolfstat/fst.sh", { "window": 1 })
 run_suite( sizes, "poolfstat/fst.sh", { "window": 100 })
+
+# npstat
+run_suite( sizes, "npstat/diversity.sh", { "window": 1000 })

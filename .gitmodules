@@ -7,3 +7,7 @@
 [submodule "software/popoolation2"]
 	path = software/popoolation2
 	url = https://github.com/lczech/popoolation2.git
+[submodule "software/npstat"]
+	path = software/npstat
+	url = git@github.com:lucaferretti/npstat.git
+	ignore = dirty
