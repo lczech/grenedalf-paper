@@ -7,6 +7,8 @@ import time
 from datetime import datetime
 
 def data_size( path ):
+    # Get the size of the file, or of the whole directory.
+
     if os.path.isfile(path):
         return os.path.getsize(path)
     elif os.path.isdir(path):
@@ -24,7 +26,8 @@ def append_to_tables( time, memory,
     with_date_time=True
 ):
     # Helper to append results to our table files.
-    # Files are immediately closed again, to make sure data is written, in case we crash.
+    # Files are immediately closed again, to make sure data is written, in case we crash
+    # during over night long benchmarks runs...
 
     if with_date_time:
         now = datetime.now().strftime("%Y-%m-%d %H:%M:%S\t")
@@ -35,13 +38,20 @@ def append_to_tables( time, memory,
     with open(memory_file, "a") as f:
         f.write(str(memory))
 
-def run_tests( script, args, iterations=1, stdout=None ):
-    # Run a test script. Our scripts are expected to measure time internally,
-    # and report it via an echo to stdout containing the string "Internal time: s" in seconds.
+def run_benchmark( script, args, iterations=1, stdout=None ):
+    # Run a test script.
+    # The function expects the script to be run, and a dict with key value pairs for the args.
+    # We run bash scripts containing the tests, and they parse these args again.
+    # Our scripts are then expected to measure time internally, and report it via an echo
+    # to stdout containing the string "Internal time: s" in seconds.
 
     print("=========================================\n")
     print("At " + datetime.now().strftime("%Y-%m-%d %H:%M:%S\t"))
-    print("Running " + script + " " + args + "\n")
+    print(
+        "Running " + script + "\n  - " +
+        "\n  - ".join([ key + "=" + str(val) for key, val in args.items() ])
+    )
+    print()
 
     # Prepare the command to be run.
     # We cannot use normal `time` on Ubuntu, as it is a wrapper that does not have the -v option.
@@ -49,7 +59,8 @@ def run_tests( script, args, iterations=1, stdout=None ):
     script=os.path.realpath(script)
     script_path = os.path.dirname(os.path.realpath(script))
     script_name = os.path.basename(os.path.realpath(script))
-    command = "/usr/bin/time -v " + script + " " + args + " 2>&1"
+    script_args = " ".join([ key + "=" + str(val) for key, val in args.items() ])
+    command = "/usr/bin/time -v " + script + " " + script_args + " 2>&1"
 
     # We want to measure all timings
     time_min=0
@@ -79,6 +90,7 @@ def run_tests( script, args, iterations=1, stdout=None ):
             break
 
         # Get time (s) and mem (Mb) from script output.
+        # We use a few differnt ways for the time, just to make sure.
         match = re.search(r'.*Internal time: ([0-9.]*).*', result.stdout)
         duration = float(match.group(1))
         match = re.search(r'.*Maximum resident set size .kbytes.: ([0-9]*).*', result.stdout)
@@ -106,7 +118,8 @@ def run_tests( script, args, iterations=1, stdout=None ):
         # The program being run is usually captured within the script,
         # so we do not see much here...
         if stdout:
-            os.makedirs(os.path.dirname(stdout), exist_ok=True)
+            if os.path.dirname(stdout):
+                os.makedirs(os.path.dirname(stdout), exist_ok=True)
             with open(stdout, "a") as stdoutfile:
                 stdoutfile.write(result.stdout)
                 stdoutfile.write(result.stderr)
@@ -121,3 +134,27 @@ def run_tests( script, args, iterations=1, stdout=None ):
 
     # Return the best time, and the memory
     return ( time_min, memory )
+
+def run_suite( sizes, script, args, name=None, iterations=1 ):
+    # Run a benchmark using one tool, for different input `sizes`.
+    # Takes the list of sizes, the script, and a dict of the script args.
+
+    if not name:
+        name = os.path.splitext(script)[0]
+
+    # Run tests for all file sizes
+    for size in sizes:
+        # Get the file, and run the test
+        args["size"] = str(size)
+        ( time, memory ) = run_benchmark( script, args, iterations )
+
+        # Get a tab-separated key-value pairs for the results table
+        tab_args = "\t".join([ key + "\t" + str(val) for key, val in args.items() ])
+
+        # Immediately write the result.
+        # This writes to our predefine table names automatically,
+        # because we are lazy and use global names today...
+        append_to_tables(
+            "{}\t{}\t{}\n".format( name, tab_args, time ),
+            "{}\t{}\t{}\n".format( name, tab_args, memory )
+        )

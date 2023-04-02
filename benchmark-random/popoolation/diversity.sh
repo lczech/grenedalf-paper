@@ -1,20 +1,29 @@
 #!/bin/bash
 
-# We use the same script for all measures in PoPoolation, for simplicity
-DATA=$1
-WINDOW=$2
-MEASURE=$3
-
-mkdir -p ${MEASURE}
+mkdir -p diversity
 mkdir -p logs
 # rm ${MEASURE}/*
 
-START=$(date +%s.%N)
+# Parse the args.
+# Dirty: we use the key to set a variable named that way.
+for arg in "$@"; do
+    key=${arg%%=*}
+    val=${arg#*=}
+    eval "$key"='$val'
+done
+
+# Set the args that we need here
+FILE="../data/pileup/random-${size}.pileup"
+BASENAME=$(basename $FILE)
+WINDOW=$window
+MEASURE=$measure
+
 echo "Start `date`"
+START=$(date +%s.%N)
 
 perl ../../software/popoolation/Variance-sliding.pl \
-    --input ${DATA} \
-    --output "${MEASURE}/$(basename ${DATA}).${MEASURE}" \
+    --input ${FILE} \
+    --output "diversity/${MEASURE}-${WINDOW}-${BASENAME}.txt" \
     --measure ${MEASURE} \
     --fastq-type sanger \
     --window-size ${WINDOW} \
@@ -24,7 +33,7 @@ perl ../../software/popoolation/Variance-sliding.pl \
     --min-coverage 4 \
     --max-coverage 1000000 \
     --min-qual 0 \
-    > logs/${MEASURE}-${WINDOW}-$(basename ${DATA}).log 2>&1
+    > logs/${MEASURE}-${WINDOW}-${BASENAME}.log 2>&1
 
 END=$(date +%s.%N)
 DIFF=$(echo "$END - $START" | bc)
