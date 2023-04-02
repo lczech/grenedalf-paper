@@ -135,7 +135,7 @@ def run_benchmark( script, args, iterations=1, stdout=None ):
     # Return the best time, and the memory
     return ( time_min, memory )
 
-def run_suite( sizes, script, args, name=None, iterations=1 ):
+def run_suite( sizes, script, args={}, name=None, iterations=1 ):
     # Run a benchmark using one tool, for different input `sizes`.
     # Takes the list of sizes, the script, and a dict of the script args.
 

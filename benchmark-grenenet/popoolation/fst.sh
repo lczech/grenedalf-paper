@@ -1,9 +1,18 @@
 #!/bin/bash
 
-OUT=${1}
-DATA=${@:2}
+# Parse the args.
+# Dirty: we use the key to set a variable named that way.
+for arg in "$@"; do
+    key=${arg%%=*}
+    val=${arg#*=}
+    eval "$key"='$val'
+done
 
-POPOOL="/home/lucas/Dropbox/GitHub/popoolation2"
+# Set the args that we need here
+OUT=${size}
+DATA="../data/subsets-sync/S1S2-${size}.sync"
+
+POPOOL="../../software/popoolation2"
 
 mkdir -p fst
 mkdir -p logs
@@ -16,7 +25,7 @@ perl ${POPOOL}/fst-sliding.pl \
     --input ${DATA} \
     --output "fst/${OUT}.fst" \
     --suppress-noninformative \
-    --window-size 1 \
+    --window-size 1000 \
     --step-size 1 \
     --pool-size 100 \
     --max-coverage 200 \

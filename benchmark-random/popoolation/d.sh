@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./diversity.sh $@ "measure=D"
+./diversity.sh $@ "measure=d"

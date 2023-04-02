@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./diversity.sh "theta" $@
+./diversity.sh $@ "measure=theta"

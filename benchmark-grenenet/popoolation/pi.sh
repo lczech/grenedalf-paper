@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./diversity.sh "pi" $@
+./diversity.sh $@ "measure=pi"

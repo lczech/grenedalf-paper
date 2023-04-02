@@ -1,9 +1,18 @@
 #!/bin/bash
 
-OUT=${1}
-DATA=${@:2}
+# Parse the args.
+# Dirty: we use the key to set a variable named that way.
+for arg in "$@"; do
+    key=${arg%%=*}
+    val=${arg#*=}
+    eval "$key"='$val'
+done
 
-POPOOL="/home/lucas/Dropbox/GitHub/popoolation2"
+# Set the args that we need here
+OUT=${size}
+DATA="../data/subsets-mpileup/S1S2-${size}.mpileup"
+
+POPOOL="../../software/popoolation2"
 
 mkdir -p sync-perl
 mkdir -p logs
