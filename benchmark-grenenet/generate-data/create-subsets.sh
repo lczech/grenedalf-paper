@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GRENEDALF="/home/lucas/Dropbox/GitHub/grenedalf/bin/grenedalf"
+GRENEDALF="../../software/grenedalf/bin/grenedalf"
 
 # we pick two files that are close to the average file size of our test samples.
 # avg size: `ls -l *.bam | gawk '{sum += $5; n++;} END {print sum/n;}'`

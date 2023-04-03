@@ -3,7 +3,7 @@
 # Simple test to check what one typical bam file from GrENE-net turns into
 # when converting it to mpileup and sync, to see how much additional disk space is needed.
 
-GRENEDALF="/home/lucas/Dropbox/GitHub/grenedalf/bin/grenedalf"
+GRENEDALF="../../software/grenedalf/bin/grenedalf"
 
 # Input file and output files
 bam1="/home/lucas/Projects/grenephase1/mapped/MLFH010120200420-1.sorted.bam"
@@ -21,7 +21,7 @@ fi
 
 if [ ! -f ${mpileup1} ] ; then
     echo "samtools mpileup MLFH010120200420"
-    samtools mpileup -f ${FASTA} -R -B -o "${mpileup1}" ${bam1} 
+    samtools mpileup -f ${FASTA} -R -B -o "${mpileup1}" ${bam1}
 fi
 
 if [ ! -f ${sync1} ] ; then
@@ -34,4 +34,3 @@ if [ ! -f ${sync1}.gz ] ; then
     echo "gzip MLFH010120200420"
     cat ${sync1} | gzip > ${sync1}.gz
 fi
-
