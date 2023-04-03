@@ -17,6 +17,7 @@ With all tools available, we run the following tests here:
   * `benchmark-random`: Simple benchmarks based on randomly generated files, as a lower boundary.
   * `benchmark-grenenet`: Benchmarks on real-world data from GrENE-net, subsetting one or two files to increasing numbers of positions to show scaling wrt genome length.
   * `benchmark-samples`: Benchmarks on real-world data from GrENE-net, increasing the number of files to show scaling wrt number of samples.
+  * `benchmark-scaling`: Benchmarks for strong and weak scaling of grenedalf on multi-core systems.
 
 Furthermore, we have some auxiliary tests and comparisons:
 
