@@ -20,7 +20,7 @@ With all tools available, we run the following tests here:
 
 Furthermore, we have some auxiliary tests and comparisons:
 
-  * `benchmark-real`: Quick test to assess overall gain of grenedalf for our GrENE-net project.
+  * `eval-grenenet`: Quick test to assess the overall gain of grenedalf for our GrENE-net project.
   * `bug-exam`: Examination of the two bugs in PoPoolation Tajima's D implementation.
 
 See the respective subdirectories for details.
