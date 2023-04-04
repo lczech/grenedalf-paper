@@ -29,10 +29,10 @@ run_suite( sizes, "grenedalf/fst.sh",       { "window": 1 },     iterations=3 )
 run_suite( sizes, "grenedalf/fst.sh",       { "window": 1000 },  iterations=3 )
 
 # PoPoolation
-# run_suite( sizes, "popoolation/d.sh",   { "window": 1000 })
-run_suite( sizes, "popoolation/fst.sh", { "window": 1 })
-run_suite( sizes, "popoolation/fst.sh", { "window": 1000 })
-run_suite( sizes, "popoolation/fst.sh", { "window": 100000000 })
+run_suite( sizes, "popoolation/diversity.sh", { "window": 1000 })
+run_suite( sizes, "popoolation/fst.sh",       { "window": 1 })
+run_suite( sizes, "popoolation/fst.sh",       { "window": 1000 })
+run_suite( sizes, "popoolation/fst.sh",       { "window": 100000000 })
 
 # poolfstat
 # the "sliding" window in poolfstat is over number of SNPs instead of along the genome,

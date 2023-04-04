@@ -18,6 +18,10 @@ BASENAME=$(basename $FILE)
 WINDOW=$window
 MEASURE=$measure
 
+if [[ -z $MEASURE ]]; then
+    MEASURE="d"
+fi
+
 echo "Start `date`"
 START=$(date +%s.%N)
 

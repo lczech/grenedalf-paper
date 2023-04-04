@@ -14,6 +14,9 @@ DATA="../data/subsets-mpileup/S1-${size}.mpileup"
 
 # We use the same script for all measures in PoPoolation, for simplicity
 MEASURE=$measure
+if [[ -z $MEASURE ]]; then
+    MEASURE="d"
+fi
 
 POPOOL="../../software/popoolation"
 
