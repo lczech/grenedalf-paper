@@ -22,6 +22,69 @@ out_dir_svg = "figures_svg"
 in_file_tmr = "measure_time.csv"
 in_file_mem = "measure_memory.csv"
 
+# Prepare nice plotting aestatics for each benchmark
+# Colors: https://matplotlib.org/stable/users/prev_whats_new/dflt_style_changes.html
+all_markers = {
+    "grenedalf/diversity": '^',
+    "grenedalf/diversity-bam": '>',
+    "grenedalf/diversity-mpileup": '^',
+    "grenedalf/diversity-sync": 's',
+    "grenedalf/fst": 's',
+    "grenedalf/fst-bam": '>',
+    "grenedalf/fst-mpileup": '^',
+    "grenedalf/fst-sync": 's',
+    "grenedalf/sync-bam": '>',
+    "grenedalf/sync-mpileup": '^',
+    "npstat/diversity": '^',
+    "poolfstat/fst": 's',
+    "popoolation/diversity": '^',
+    "popoolation/fst": 's',
+    "popoolation/sync-java": 'D',
+    "popoolation/sync-perl": 'o',
+    "samtools/mpileup": 'o',
+}
+all_dashes = {
+    "grenedalf/diversity": (1,0),
+    "grenedalf/diversity-bam": (1,0),
+    "grenedalf/diversity-mpileup": (1,0),
+    "grenedalf/diversity-sync": (1,0),
+    "grenedalf/fst": (1,0),
+    "grenedalf/fst-bam": (1,0),
+    "grenedalf/fst-mpileup": (1,0),
+    "grenedalf/fst-sync": (1,0),
+    "grenedalf/sync-bam": (1,0),
+    "grenedalf/sync-mpileup": (1,0),
+    "npstat/diversity": (5,2),
+    "poolfstat/fst": (5,2),
+    "popoolation/diversity": (5,2),
+    "popoolation/fst": (5,2),
+    "popoolation/sync-java": (5,2),
+    "popoolation/sync-perl": (5,2),
+    "samtools/mpileup": (5,2),
+}
+all_palette = {
+    "grenedalf/diversity": "k",
+    "grenedalf/diversity-bam": "k",
+    "grenedalf/diversity-mpileup": "k",
+    "grenedalf/diversity-sync": "k",
+    "grenedalf/fst": "k",
+    "grenedalf/fst-bam": "k",
+    "grenedalf/fst-mpileup": "k",
+    "grenedalf/fst-sync": "k",
+    "grenedalf/sync-bam": "k",
+    "grenedalf/sync-mpileup": "k",
+    "npstat/diversity": "C7",
+    "poolfstat/fst": "C3",
+    "popoolation/diversity": "C9",
+    "popoolation/fst": "C9",
+    "popoolation/sync-java": "C9",
+    "popoolation/sync-perl": "C9",
+    "samtools/mpileup": "C5",
+}
+size_xticklabels = [
+    "10K", "20K", "50K", "100K", "200K", "500K", "1M", "2M", "5M", "10M", "20M", "50M", "100M"
+]
+
 # ------------------------------------------------------------
 #     read_benchmark_csv
 # ------------------------------------------------------------
@@ -37,7 +100,7 @@ def read_benchmark_csv( infile, params, data_col_name ):
         for line in f:
             elems = line.strip().split('\t')
             if len(elems) != 3 + len(params) * 2:
-                raise Exception( "Not right line len " + str(len(elems)) )
+                raise Exception( "Not right line len: " + line )
             entries = {
                 "tool": elems[1],
                 data_col_name: float(elems[len(params)*2 + 2])
@@ -66,7 +129,7 @@ def prepare_tables(param_cols):
     # print(mem_data)
 
     # Convert time to minutes instead of seconds
-    tmr_data["time"] = tmr_data["time"] / 60.0
+    # tmr_data["time"] = tmr_data["time"] / 60.0
 
     if len(tmr_data) != len(mem_data):
         raise Exception("Tables not matching")
@@ -104,8 +167,8 @@ def select_column_data( time_data, memory_data, filter_cols_and_values ):
 
 plotnum = 1
 def plot_table(
-    title, data, measure, scale="lin",
-    markers='o', dashes=(0, ""), palette='k', xticklabels=None, **kwargs
+    title, data, measure, xlabel_scale, yscale="lin", xticklabels=None,
+    markers='o', dashes=(0, ""), palette='k', **kwargs
 ):
     global plotnum
     global out_dir_png
@@ -124,7 +187,7 @@ def plot_table(
         title += "  " + "(Memory)"
 
     # Scale to minutes or hours in linear case
-    if measure == "tmr" and scale == "lin":
+    if measure == "tmr" and yscale == "lin":
         data = data / 60.0
 
     # Seaborn can't deal with dicts properly, we need to translate to a list
@@ -148,13 +211,14 @@ def plot_table(
 
     # Make the plot. Our data set sizes are roughly exponential,
     # so the x-axis already is kind of log scaled. Do the same for the y-axis.
-    plt.figure( plotnum )
+    # plt.figure( plotnum )
+    plt.figure( plotnum, figsize=(8,6) )
     ax = sns.lineplot(
         data=data, markers=list_markers, dashes=list_dashes, palette=list_palette, **kwargs
     )
-    if scale == "log":
+    if yscale == "log":
         ax.set_yscale('log')
-    elif scale != "lin":
+    elif yscale != "lin":
         raise Exception( "Invalid scale" )
     ax.yaxis.grid(True, which='major')
     # plt.tight_layout()
@@ -168,12 +232,12 @@ def plot_table(
     # Nameing the plot and the axis.
     ax.set_title( title )
     #ax.set_xlabel('Dataset Size  [bytes]')
-    ax.set_xlabel('Dataset Size  [rows]')
+    ax.set_xlabel('Dataset Size  [' + xlabel_scale + ']')
     if measure == "tmr":
         ax.set_ylabel('Runtime  [s]')
 
         # Scale to minutes in linear case
-        if scale == "lin":
+        if yscale == "lin":
             ax.set_ylabel('Runtime  [min]')
     elif measure == "mem":
     	ax.set_ylabel('Memory  [MB]')
@@ -183,17 +247,28 @@ def plot_table(
     # Set correct x axis labels. Nightmare.
     ax.set_xticks(list(), minor=False)
     ax.set_xticklabels('', minor=False)
-    ax.set_xticks(list(range(len(xticklabels))), minor=True)
     if xticklabels:
+        ax.set_xticks(list(range(len(xticklabels))), minor=True)
         ax.set_xticklabels(xticklabels, minor=True)
     #ax.xaxis.grid(False, which='minor')
     plt.legend(title='')
+    plt.legend(loc='upper left')
+
+    # For mem plots, we need to legend, as it's already in the time plot
+    if measure == "mem":
+        ax.get_legend().remove()
 
     # Save to files
-    testcase = title.lower().replace( " ", "-" )
+    testcase = title.lower().replace( " ", "-" ).replace("--", "-")
     testcase = ''.join(c for c in testcase if c.isalnum() or c == '-')
-    plt.savefig(out_dir_png + "/" + measure + "_" + testcase + "_" + scale + ".png", format='png')
-    plt.savefig(out_dir_svg + "/" + measure + "_" + testcase + "_" + scale + ".svg", format='svg')
+    plt.savefig(
+        out_dir_png + "/" + testcase + "-" + yscale + ".png",
+        format='png', bbox_inches="tight"
+    )
+    plt.savefig(
+        out_dir_svg + "/" + testcase + "-" + yscale + ".svg",
+        format='svg', bbox_inches="tight"
+    )
     plt.close( plotnum )
     plotnum += 1
 
@@ -202,10 +277,22 @@ def plot_table(
 # ------------------------------------------------------------
 
 def plot_all_tables(
-    testcase, time_data, memory_data,
-    markers='o', dashes=(0, ""), palette='k', xticklabels=None, **kwargs
+    testcase, time_data, memory_data, xlabel_scale, xticklabels=size_xticklabels,
+    markers=all_markers, dashes=all_dashes, palette=all_palette, **kwargs
 ):
-    plot_table( testcase, time_data,   "tmr", "lin", markers, dashes, palette, xticklabels, **kwargs )
-    plot_table( testcase, memory_data, "mem", "lin", markers, dashes, palette, xticklabels, **kwargs )
-    plot_table( testcase, time_data,   "tmr", "log", markers, dashes, palette, xticklabels, **kwargs )
-    plot_table( testcase, memory_data, "mem", "log", markers, dashes, palette, xticklabels, **kwargs )
+    plot_table(
+        testcase, time_data,   "tmr", xlabel_scale, "lin", xticklabels,
+        markers, dashes, palette, **kwargs
+    )
+    plot_table(
+        testcase, memory_data, "mem", xlabel_scale, "lin", xticklabels,
+        markers, dashes, palette, **kwargs
+    )
+    plot_table(
+        testcase, time_data,   "tmr", xlabel_scale, "log", xticklabels,
+        markers, dashes, palette, **kwargs
+    )
+    plot_table(
+        testcase, memory_data, "mem", xlabel_scale, "log", xticklabels,
+        markers, dashes, palette, **kwargs
+    )

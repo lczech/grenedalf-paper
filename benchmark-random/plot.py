@@ -21,31 +21,6 @@ sizes = [
     2000000, 5000000, 10000000, 20000000, 50000000, 100000000
 ]
 
-# print(tmr_data)
-# print(mem_data)
-
-# Prepare nice plotting aestatics for each benchmark
-markers = 'o'
-dashes = {
-    "grenedalf/diversity": (1,0),
-    "grenedalf/fst": (1,0),
-    "popoolation/fst": (5,2),
-    "popoolation/diversity": (5,2),
-    "npstat/diversity": (5,2),
-    "poolfstat/fst": (5,2)
-}
-palette = {
-    "grenedalf/diversity": "k",
-    "grenedalf/fst": "k",
-    "popoolation/fst": "C9",
-    "popoolation/diversity": "C9",
-    "npstat/diversity": "C7",
-    "poolfstat/fst": "C3"
-}
-xticklabels = [
-    "10K", "20K", "50K", "100K", "200K", "500K", "1M", "2M", "5M", "10M", "20M", "50M", "100M"
-]
-
 # ------------------------------------------------------------
 #     read data and plot
 # ------------------------------------------------------------
@@ -53,6 +28,9 @@ xticklabels = [
 # Read the tables for timing and memory,
 # using the two variables over which the benchmark runs varied.
 tmr_data, mem_data = prepare_tables([ "window", "size" ])
+xlabel_scale = "rows"
+# print(tmr_data)
+# print(mem_data)
 
 # diversity
 tmr_diversity, mem_diversity = select_column_data( tmr_data, mem_data, {
@@ -60,9 +38,7 @@ tmr_diversity, mem_diversity = select_column_data( tmr_data, mem_data, {
     "window": [ 1000 ],
     "size": sizes
 })
-plot_all_tables(
-    "Diversity", tmr_diversity, mem_diversity, '^', dashes, palette, xticklabels, markersize=8
-)
+plot_all_tables( "Diversity", tmr_diversity, mem_diversity, xlabel_scale, markersize=8 )
 
 # fst, window 0 (whole genome)
 tmr_fst_0, mem_fst_0 = select_column_data( tmr_data, mem_data, {
@@ -70,7 +46,7 @@ tmr_fst_0, mem_fst_0 = select_column_data( tmr_data, mem_data, {
     "window": [ 0, 100000000 ],
     "size": sizes
 })
-plot_all_tables("FST (whole genome)", tmr_fst_0, mem_fst_0, 's', dashes, palette, xticklabels )
+plot_all_tables("FST (whole genome)", tmr_fst_0, mem_fst_0, xlabel_scale )
 
 # fst, window 1
 tmr_fst_1, mem_fst_1 = select_column_data( tmr_data, mem_data, {
@@ -78,7 +54,7 @@ tmr_fst_1, mem_fst_1 = select_column_data( tmr_data, mem_data, {
     "window": [ 1 ],
     "size": sizes
 })
-plot_all_tables("FST (Window 1)", tmr_fst_1, mem_fst_1, 's', dashes, palette, xticklabels )
+plot_all_tables("FST (Window 1)", tmr_fst_1, mem_fst_1, xlabel_scale )
 
 # fst, window 1000
 tmr_fst_1000, mem_fst_1000 = select_column_data( tmr_data, mem_data, {
@@ -86,4 +62,4 @@ tmr_fst_1000, mem_fst_1000 = select_column_data( tmr_data, mem_data, {
     "window": [ 1000, 100 ],
     "size": sizes
 })
-plot_all_tables("FST (Window 1000)", tmr_fst_1000, mem_fst_1000, 's', dashes, palette, xticklabels )
+plot_all_tables("FST (Window 1000)", tmr_fst_1000, mem_fst_1000, xlabel_scale )
