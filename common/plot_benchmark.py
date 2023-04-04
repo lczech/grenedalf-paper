@@ -18,6 +18,7 @@ from matplotlib.ticker import FuncFormatter
 
 # global names for our ins and outs
 out_dir_png = "figures_png"
+out_dir_pdf = "figures_pdf"
 out_dir_svg = "figures_svg"
 in_file_tmr = "measure_time.csv"
 in_file_mem = "measure_memory.csv"
@@ -126,7 +127,10 @@ def read_benchmark_csv( infile, params, data_col_name ):
             for i in range(len(params)):
                 if elems[2+2*i] != params[i]:
                     raise Exception("Invalid params")
-                entries[params[i]] = int(elems[3+2*i])
+                try:
+                    entries[params[i]] = int(elems[3+2*i])
+                except Exception as e:
+                    entries[params[i]] = elems[3+2*i]
             row_list.append(entries)
     columns = ["tool"] + params + [data_col_name]
     return pd.DataFrame(row_list, columns=columns)
@@ -196,19 +200,24 @@ def plot_table(
 ):
     global plotnum
     global out_dir_png
+    global out_dir_pdf
     global out_dir_svg
 
     # Create dirs for results
     if not os.path.exists(out_dir_png):
         os.makedirs(out_dir_png)
+    if not os.path.exists(out_dir_pdf):
+        os.makedirs(out_dir_pdf)
     if not os.path.exists(out_dir_svg):
         os.makedirs(out_dir_svg)
 
     # Make the tile
     if measure == "tmr":
         fulltitle = "Runtime:  " + title
-    else:
+    elif measure == "mem":
         fulltitle = "Memory:  " + title
+    else:
+        fulltitle = title
 
     # Scale to minutes or hours in linear case
     if measure == "tmr" and yscale == "lin":
@@ -265,6 +274,10 @@ def plot_table(
             ax.set_ylabel('Runtime  [min]')
     elif measure == "mem":
     	ax.set_ylabel('Memory  [MB]')
+    elif measure == "strong":
+        ax.set_ylabel('Speedup')
+    elif measure == "weak":
+        ax.set_ylabel('Efficieny')
     else:
         raise Exception( "Invalid measure" )
 
@@ -277,9 +290,11 @@ def plot_table(
     #ax.xaxis.grid(False, which='minor')
     plt.legend(title='')
     plt.legend(loc='upper left')
+    if "Strong" in title and measure == "tmr":
+        plt.legend(loc='center left')
 
     # For mem plots, we need to legend, as it's already in the time plot
-    if measure == "mem":
+    if measure == "mem" or measure == "strong" or measure == "weak":
         ax.get_legend().remove()
 
     # Save to files
@@ -289,6 +304,10 @@ def plot_table(
     plt.savefig(
         out_dir_png + "/" + testcase + '-' + measure + "-" + yscale + ".png",
         format='png', bbox_inches="tight"
+    )
+    plt.savefig(
+        out_dir_pdf + "/" + testcase + '-' + measure + "-" + yscale + ".pdf",
+        format='pdf', bbox_inches="tight"
     )
     plt.savefig(
         out_dir_svg + "/" + testcase + '-' + measure + "-" + yscale + ".svg",
@@ -303,10 +322,10 @@ def plot_table(
 
 def plot_all_tables(
     testcase, time_data, memory_data, xlabel_scale, xticklabels=size_xticklabels,
-    markers=all_markers, dashes=all_dashes, palette=all_palette, **kwargs
+    markers=all_markers, dashes=all_dashes, palette=all_palette, measure_1="tmr", **kwargs
 ):
     plot_table(
-        testcase, time_data,   "tmr", xlabel_scale, "lin", xticklabels,
+        testcase, time_data, measure_1, xlabel_scale, "lin", xticklabels,
         markers, dashes, palette, **kwargs
     )
     plot_table(
@@ -314,7 +333,7 @@ def plot_all_tables(
         markers, dashes, palette, **kwargs
     )
     plot_table(
-        testcase, time_data,   "tmr", xlabel_scale, "log", xticklabels,
+        testcase, time_data, measure_1, xlabel_scale, "log", xticklabels,
         markers, dashes, palette, **kwargs
     )
     plot_table(
