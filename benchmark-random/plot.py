@@ -32,7 +32,12 @@ xlabel_scale = "rows"
 # print(tmr_data)
 # print(mem_data)
 
-# diversity
+# Nicer names. The "0" option is for grenedalf and poolfstat as a "whole genome" marker,
+# while popoolation does not support whole genome, so we used a large window instead.
+tmr_data = tmr_data.replace({"window": { 0: "WG", 100000000: "WG", 1: "SNP" }})
+mem_data = mem_data.replace({"window": { 0: "WG", 100000000: "WG", 1: "SNP" }})
+
+# # diversity
 tmr_diversity, mem_diversity = select_column_data( tmr_data, mem_data, {
     "tool": [ "grenedalf/diversity", "popoolation/diversity", "npstat/diversity" ],
     "window": [ 1000 ],
@@ -43,7 +48,7 @@ plot_all_tables( "Diversity", tmr_diversity, mem_diversity, xlabel_scale, marker
 # fst, window 0 (whole genome)
 tmr_fst_0, mem_fst_0 = select_column_data( tmr_data, mem_data, {
     "tool": [ "grenedalf/fst", "popoolation/fst", "poolfstat/fst" ],
-    "window": [ 0, 100000000 ],
+    "window": [ "WG" ],
     "size": sizes
 })
 plot_all_tables("FST (whole genome)", tmr_fst_0, mem_fst_0, xlabel_scale )
@@ -51,10 +56,10 @@ plot_all_tables("FST (whole genome)", tmr_fst_0, mem_fst_0, xlabel_scale )
 # fst, window 1
 tmr_fst_1, mem_fst_1 = select_column_data( tmr_data, mem_data, {
     "tool": [ "grenedalf/fst", "popoolation/fst", "poolfstat/fst" ],
-    "window": [ 1 ],
+    "window": [ "SNP" ],
     "size": sizes
 })
-plot_all_tables("FST (Window 1)", tmr_fst_1, mem_fst_1, xlabel_scale )
+plot_all_tables("FST (single SNPs)", tmr_fst_1, mem_fst_1, xlabel_scale )
 
 # fst, window 1000
 tmr_fst_1000, mem_fst_1000 = select_column_data( tmr_data, mem_data, {
@@ -62,4 +67,12 @@ tmr_fst_1000, mem_fst_1000 = select_column_data( tmr_data, mem_data, {
     "window": [ 1000, 100 ],
     "size": sizes
 })
-plot_all_tables("FST (Window 1000)", tmr_fst_1000, mem_fst_1000, xlabel_scale )
+plot_all_tables("FST (1000 bp / 100 SNPs windows)", tmr_fst_1000, mem_fst_1000, xlabel_scale )
+
+# fst, window 1 and whole genome
+tmr_fst_1_wg, mem_fst_1_wg = select_column_data( tmr_data, mem_data, {
+    "tool": [ "grenedalf/fst", "popoolation/fst", "poolfstat/fst" ],
+    "window": [ "SNP", "WG" ],
+    "size": sizes
+}, "window" )
+plot_all_tables("FST (single SNPs and whole genome)", tmr_fst_1_wg, mem_fst_1_wg, xlabel_scale )
