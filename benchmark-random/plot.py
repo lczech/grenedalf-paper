@@ -8,7 +8,7 @@ os.chdir(os.path.dirname(sys.argv[0]))
 # Such a cheat to import stuff in python...
 # See https://stackoverflow.com/a/22956038
 sys.path.insert(0, '../common')
-from plot import *
+from plot_benchmark import *
 
 # ------------------------------------------------------------
 #     plot aestatics
