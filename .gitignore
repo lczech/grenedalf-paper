@@ -1,6 +1,19 @@
+# Input data
 benchmark-grenenet/TAIR10_chr_all.fa*
 benchmark-grenenet/data/
 bug-exam/*.zip
 benchmark-random/data/pileup/
 benchmark-random/data/sync/
+
+# Compiled tools
 software/npstat/npstat
+
+# Outputs of the tool runs
+*/*/diversity*/
+*/*/fst*/
+*/*/logs*/
+
+# Outputs of the plotting
+*/figures_pdf
+*/figures_png
+*/figures_svg
