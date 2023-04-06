@@ -14,15 +14,15 @@ See the `software` directory here for their setup.
 
 With all tools available, we run the following tests here:
 
-  * `benchmark-random`: Simple benchmarks based on randomly generated files, as a lower boundary.
   * `benchmark-grenenet`: Benchmarks on real-world data from GrENE-net, subsetting one or two files to increasing numbers of positions to show scaling with respect to the genome length.
+  * `benchmark-random`: Simple benchmarks based on randomly generated files, as a lower boundary of how much faster grenedalf is compared to its competitors.
   * `benchmark-samples`: Benchmarks on real-world data from GrENE-net, increasing the number of files to show scaling wrt number of samples.
   * `benchmark-scaling`: Benchmarks for strong and weak scaling of grenedalf on multi-core systems.
 
 Furthermore, we have some auxiliary tests and comparisons:
 
+  * `eval-bug-exam`: Examination of the two bugs in PoPoolation Tajima's D implementation.
   * `eval-correlation`: Test how the results from grenedalf correlate with those of other tools.
   * `eval-grenenet`: Quick test to assess the overall gain of grenedalf for our GrENE-net project.
-  * `bug-exam`: Examination of the two bugs in PoPoolation Tajima's D implementation.
 
 See the respective subdirectories for details.

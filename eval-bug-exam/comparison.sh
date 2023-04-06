@@ -6,9 +6,11 @@ GRENEDALF="../software/grenedalf/bin/grenedalf"
 DATA="data"
 TAJIMA="tajima-d"
 WINDIR="windows"
+PDFDIR="figures_pdf"
 # ERRLOG="debug"
 
 mkdir -p ${WINDIR}
+mkdir -p ${PDFDIR}
 # mkdir -p ${ERRLOG}
 rm -f "${WINDIR}/window-*.csv"
 rm -f "${WINDIR}/window-*.pdf"
@@ -109,9 +111,10 @@ for window in ${WINDOWS} ; do
 
     # Run the plot tool
     ./plot.py ${WINDIR}/window-${window}.csv
+    mv ${WINDIR}/window-${window}.pdf ${PDFDIR}
 
     # Prepare the list of pdfs in order
-    PDFS="${PDFS} ${WINDIR}/window-${window}.pdf"
+    PDFS="${PDFS} ${PDFDIR}/window-${window}.pdf"
 done
 
 # Make one pdf with all of them
