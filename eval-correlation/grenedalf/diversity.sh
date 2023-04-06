@@ -28,7 +28,7 @@ for D in ${DATA} ; do
     INPATHS="${INPATHS} --pileup-path ${D}"
 done
 
-mkdir -p diversity-mpileup
+mkdir -p diversity
 mkdir -p logs
 
 echo "Start `date`"
@@ -44,10 +44,11 @@ $GRENEDALF diversity \
     --filter-sample-max-coverage 1000 \
     --pileup-min-base-qual 10 \
     --pool-sizes 100 \
-    --out-dir "diversity-mpileup" \
+    --out-dir "diversity" \
     --file-suffix "-${OUT}" \
+    --na-entry nan \
     --allow-file-overwriting \
-    > "logs/diversity-mpileup-${OUT}.log" 2>&1
+    > "logs/diversity-${OUT}.log" 2>&1
 
 # grenedalf can easily use the higher coverage,
 # but in order for a fair comparison, we use the same value here

@@ -22,6 +22,11 @@ if [[ ${WINDOW} == "100" ]]; then
 else
     WINDOWSTR="--window-type sliding --window-sliding-width ${WINDOW}"
 fi
+if [[ "$WINDOW" == "1" ]]; then
+    OMITSTR="--omit-na-windows"
+else
+    OMITSTR=""
+fi
 
 # build command line
 INPATHS=""
@@ -38,14 +43,15 @@ START=$(date +%s.%N)
 $GRENEDALF fst \
     ${INPATHS} \
     ${WINDOWSTR} \
+    ${OMITSTR} \
     --pool-sizes 100 \
     --method ${METHOD} \
-    --omit-na-windows \
     --out-dir "fst" \
     --file-suffix "-${OUT}-${WINDOW}-${METHOD}" \
     --filter-sample-min-count 2 \
     --filter-sample-min-coverage 4 \
     --filter-sample-max-coverage 100 \
+    --na-entry nan \
     --allow-file-overwriting \
     > "logs/fst-${OUT}-${WINDOW}-${METHOD}.log" 2>&1
 
