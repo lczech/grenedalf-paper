@@ -27,6 +27,11 @@ if [[ "$WINDOW" == "1" ]]; then
 else
     OMITSTR=""
 fi
+if [[ "$METHOD" == "unbiased-hudson" ]]; then
+    METHODSTR="--filter-total-only-biallelic-snps"
+else
+    METHODSTR=""
+fi
 
 # build command line
 INPATHS=""
@@ -43,6 +48,7 @@ START=$(date +%s.%N)
 $GRENEDALF fst \
     ${INPATHS} \
     ${WINDOWSTR} \
+    ${METHODSTR} \
     ${OMITSTR} \
     --pool-sizes 100 \
     --method ${METHOD} \

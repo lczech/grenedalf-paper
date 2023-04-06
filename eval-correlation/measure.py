@@ -25,15 +25,18 @@ run_suite( sizes, "popoolation/diversity.sh", { "measure": "theta" })
 
 # FST
 
+# grenedalf
 for method in ["unbiased-nei","unbiased-hudson","kofler","karlsson"]:
     run_suite( sizes, "grenedalf/fst.sh", { "window":    1, "method": method })
     run_suite( sizes, "grenedalf/fst.sh", { "window":  100, "method": method })
     run_suite( sizes, "grenedalf/fst.sh", { "window": 1000, "method": method })
 
+# # poolfstat
 for method in ["Anova","Identity"]:
     run_suite( sizes, "poolfstat/fst.sh", { "window":   1, "method": method })
     run_suite( sizes, "poolfstat/fst.sh", { "window": 100, "method": method })
 
+# popoolation
 for method in ["kofler","karlsson"]:
     run_suite( sizes, "popoolation/fst.sh", { "window":    1, "method": method })
     run_suite( sizes, "popoolation/fst.sh", { "window": 1000, "method": method })
