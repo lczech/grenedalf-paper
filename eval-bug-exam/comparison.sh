@@ -109,15 +109,15 @@ for window in ${WINDOWS} ; do
         done
     done
 
-    # Run the plot tool
-    ./plot.py ${WINDIR}/window-${window}.csv
-    mv ${WINDIR}/window-${window}.pdf ${PDFDIR}
-
-    # Prepare the list of pdfs in order
-    PDFS="${PDFS} ${PDFDIR}/window-${window}.pdf"
+    # # Run the plot tool
+    # ./plot.py ${WINDIR}/window-${window}.csv
+    # mv ${WINDIR}/window-${window}.pdf ${PDFDIR}
+    #
+    # # Prepare the list of pdfs in order
+    # PDFS="${PDFS} ${PDFDIR}/window-${window}.pdf"
 done
 
 # Make one pdf with all of them
-pdftk ${PDFS} cat output results.pdf
+# pdftk ${PDFS} cat output results.pdf
 
 echo "End `date`"
