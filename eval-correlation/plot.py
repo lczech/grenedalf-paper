@@ -10,14 +10,8 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import os, sys
-from scipy import stats
+import scipy as sp
 from matplotlib.ticker import FuncFormatter
-
-# Yikes... https://stackoverflow.com/a/66683635
-def remove_suffix(input_string, suffix):
-    if suffix and input_string.endswith(suffix):
-        return input_string[:-len(suffix)]
-    return input_string
 
 # ------------------------------------------------------------
 #     Settings
@@ -54,8 +48,6 @@ def parse_popoolation_diversity(infile):
 
 def parse_popoolation_fst(infile):
     df = pd.read_csv(infile, sep='\t', header=None)
-    # df[5] = df[5].map(lambda x: remove_suffix(x, "1:2=")).astype({5: float})
-    # df[5] = df[5].map(lambda x: remove_suffix(x, "1:2="))
     df[5] = df[5].str.replace("1:2=", "").replace("na", "nan").astype({5: float})
     return df
 
@@ -100,18 +92,21 @@ def plot_corr(
     if not os.path.exists(out_dir_svg):
         os.makedirs(out_dir_svg)
 
+    # Compute the pearson correlation between both, and the mean squared error
+    pearson_r, pearson_p = sp.stats.pearsonr(x=df['x'], y=df['y'])
+    # mse = ((df['x'] - df['y'])**2).mean()
+    mae = (np.absolute(df['x'] - df['y'])).mean()
+
     # Let's make a fancy density plot to be able to better see the dot density
-    # That might not always work, if everything is on one line for perfect correlation.
-    # So we try...
     # Also, we subset for the kernel computation, as it takes waaaay to long otherwise...
-    max_df_size = 50000
+    max_df_size = 25000
     if len(df.index) > max_df_size:
         print("  subsetting")
         df = df.sample(n=max_df_size)
     values = np.vstack([df['x'], df['y']])
     colormap = plt.cm.viridis_r
     print("  kernel")
-    kernel = stats.gaussian_kde(values)(values)
+    kernel = sp.stats.gaussian_kde(values)(values)
 
     # Make the plot
     print("  plot", len(values[0]))
@@ -137,6 +132,11 @@ def plot_corr(
     ax.plot( lims, lims, 'lightgray', zorder=-1)
     # ax.plot( lims, lims, 'k', alpha=0.2 )
     # plt.plot([0, 1], [0, 1])
+
+    # annotate the pearson correlation coefficient text to 2 decimal places
+    plt.text(.05, .95, 'r={:.2f}'.format(pearson_r), transform=ax.transAxes)
+    # plt.text(.05, .92, 's={:.6f}'.format(mse), transform=ax.transAxes)
+    plt.text(.05, .92, 'MAE={:.4f}'.format(mae), transform=ax.transAxes)
 
     # Nameing the plot and the axis.
     ax.set_title( title )
@@ -221,14 +221,14 @@ if plot_diversity:
     # ------------------------------------------------------------
 
     # Plot grenedalf with bugs vs without
-    plot_corr(
-        "Theta Pi",        "grenedalf", "grenedalf (bugs)",
-        grenedalf_nobugs_p, grenedalf_popool_p
-    )
-    plot_corr(
-        "Theta Watterson", "grenedalf", "grenedalf (bugs)",
-        grenedalf_nobugs_w, grenedalf_popool_w
-    )
+    # plot_corr(
+    #     "Theta Pi",        "grenedalf", "grenedalf (bugs)",
+    #     grenedalf_nobugs_p, grenedalf_popool_p
+    # )
+    # plot_corr(
+    #     "Theta Watterson", "grenedalf", "grenedalf (bugs)",
+    #     grenedalf_nobugs_w, grenedalf_popool_w
+    # )
     plot_corr(
         "Tajima's D",      "grenedalf", "grenedalf (bugs)",
         grenedalf_nobugs_d, grenedalf_popool_d

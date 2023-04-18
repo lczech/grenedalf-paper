@@ -54,7 +54,7 @@ def plot_window(window):
         data=df, x=x_name, y=y_name, hue=h_name,
         kind="violin", scale="width", palette=sns.color_palette("flare", n_colors=n_colors),
         linewidth=0.5, height=6, aspect=1.8, legend_out=False,
-        facet_kws={"gridspec_kws": {"wspace":0.0}, "margin_titles": True, "ylim": (0, 11) }
+        facet_kws={"gridspec_kws": {"wspace":0.0}, "margin_titles": True, "ylim": (0, 8.5) }
     )
     # margin_titles=False, xlim=None, ylim=None, subplot_kws=None, gridspec_kws=None
 
