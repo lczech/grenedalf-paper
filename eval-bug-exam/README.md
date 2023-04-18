@@ -1,3 +1,5 @@
+# Examination of the bugs in the implementation of Tajima's D in PoPoolation
+
 This directory contains some tests to determine the effects of the two bugs in PoPoolation
 that affect the numerical values of the pool-correct variant of Tajima's D.
 

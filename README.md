@@ -12,7 +12,7 @@ We here provide tests scripts to benchmark [grenedalf](https://github.com/lczech
 
 See the `software` directory here for their setup.
 
-With all tools available, we run the following tests here:
+We run the following tests here:
 
   * `benchmark-grenenet`: Benchmarks on real-world data from GrENE-net, subsetting one or two files to increasing numbers of positions to show scaling with respect to the genome length.
   * `benchmark-random`: Simple benchmarks based on randomly generated files, as a lower boundary of how much faster grenedalf is compared to its competitors.
