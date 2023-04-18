@@ -22,7 +22,7 @@ We run the following tests here:
 Furthermore, we have some auxiliary tests and comparisons:
 
   * `eval-bug-exam`: Examination of the two bugs in PoPoolation Tajima's D implementation.
-  * `eval-correlation`: Test how the results from grenedalf correlate with those of other tools.
+  * `eval-corr-grenenet`: Test how the results from grenedalf correlate with those of other tools.
   * `eval-fst-biases`: Evaluation of the biases of different Pool-seq estimators of FST.
   * `eval-grenenet`: Quick test to assess the overall gain of grenedalf for our GrENE-net project.
 
