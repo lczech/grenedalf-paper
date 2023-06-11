@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 # libraries
 import matplotlib
@@ -251,7 +251,9 @@ def plot_table(
     )
     if yscale == "log":
         ax.set_yscale('log')
-    elif yscale != "lin":
+    elif yscale == "lin":
+        ax.set(ylim=(0, None))
+    else:
         raise Exception( "Invalid scale" )
     ax.yaxis.grid(True, which='major')
     # plt.tight_layout()

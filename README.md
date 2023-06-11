@@ -10,7 +10,7 @@ We here provide tests scripts to benchmark [grenedalf](https://github.com/lczech
   * [poolfstat](https://cran.r-project.org/web/packages/poolfstat/index.html) (FST)
   * [npstat](https://github.com/lucaferretti/npstat) (diversity)
 
-See the `software` directory here for their setup.
+See the `software` directory here for their setup. For the plotting, we furthermore need some python tools, as specified in the `common/conda.yaml` file. As always with these things, versions have to be exact.
 
 We run the following tests here:
 
