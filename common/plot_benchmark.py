@@ -193,6 +193,8 @@ def select_column_data( time_data, memory_data, filter_cols_and_values, rename=N
 #     plot_table
 # ------------------------------------------------------------
 
+# Super ad-hoc function with lots of special cases... could be done way nicer,
+# but for the limited usage that we have here it's hopefully good enough.
 plotnum = 1
 def plot_table(
     title, data, measure, xlabel_scale, yscale="lin", xticklabels=None,
@@ -252,7 +254,13 @@ def plot_table(
     if yscale == "log":
         ax.set_yscale('log')
     elif yscale == "lin":
-        ax.set(ylim=(0, None))
+        # For linear plots, we want to show y=0 as a base line, instead of starting the y axis
+        # near the first point. Adjusting the ylim however grounds the ylim to the bottom of the
+        # plot with no margin. And setting the margin so that 0 is always nicely visible seems
+        # to be a hassle... so we just include a fake single point, which won't show up,
+        # but makes the ylim nicely show 0 as well ;-)
+        # ax.set(ylim=(0, None))
+        sns.lineplot(data=[0])
     else:
         raise Exception( "Invalid scale" )
     ax.yaxis.grid(True, which='major')
@@ -267,13 +275,18 @@ def plot_table(
     # Nameing the plot and the axis.
     ax.set_title( fulltitle )
     #ax.set_xlabel('Dataset Size  [bytes]')
-    ax.set_xlabel('Dataset Size  [' + xlabel_scale + ']')
+    # Ugly special case, so that we don't need to rewrite all plotting...
+    if  xlabel_scale == "Threads":
+        ax.set_xlabel(xlabel_scale)
+    else:
+        ax.set_xlabel('Dataset Size  [' + xlabel_scale + ']')
     if measure == "tmr":
         ax.set_ylabel('Runtime  [s]')
-
         # Scale to minutes in linear case
         if yscale == "lin":
             ax.set_ylabel('Runtime  [min]')
+    elif measure == "scaling-tmr":
+        ax.set_ylabel('Runtime  [h]')
     elif measure == "mem":
     	ax.set_ylabel('Memory  [MB]')
     elif measure == "strong":
@@ -291,9 +304,15 @@ def plot_table(
         ax.set_xticklabels(xticklabels, minor=True)
     #ax.xaxis.grid(False, which='minor')
     plt.legend(title='')
-    plt.legend(loc='upper left')
-    if "Strong" in title and measure == "tmr":
-        plt.legend(loc='center left')
+    # plt.legend(loc='upper left')
+    if "Strong" in title and ( measure == "tmr" or measure == "scaling-tmr" ):
+        # That's the only plot where the upper left corner is busy...
+        # so use automatic placement instead here. So ugly...
+        # plt.legend(loc='left')
+        pass
+    else:
+        plt.legend(loc='upper left')
+        # plt.legend(loc='center left')
 
     # For mem plots, we need to legend, as it's already in the time plot
     if measure == "mem" or measure == "strong" or measure == "weak":

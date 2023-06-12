@@ -18,7 +18,7 @@ from plot_benchmark import *
 # We are on an 8-core system, so that's how far we go.
 samples = [ 1, 2, 3, 4, 5, 6, 7, 8 ]
 
-xlabel_scale = "samples"
+xlabel_scale = "Threads"
 xticklabels = samples
 
 all_markers = {
@@ -98,7 +98,7 @@ tmr_strong = add_ideal_line( tmr_strong, "strong" )
 
 # Plot the speedup
 plot_all_tables(
-    "Strong scaling", tmr_strong, mem_strong, xlabel_scale, xticklabels,
+    "Strong scaling speedup", tmr_strong, mem_strong, xlabel_scale, xticklabels,
     markers=all_markers, dashes=all_dashes, palette=all_palette, measure_1="strong"
 )
 
@@ -128,6 +128,6 @@ tmr_weak = add_ideal_line( tmr_weak, "weak" )
 
 # Plot the efficiency
 plot_all_tables(
-    "Weak scaling", tmr_weak, mem_weak, xlabel_scale, xticklabels,
+    "Weak scaling efficiency", tmr_weak, mem_weak, xlabel_scale, xticklabels,
     markers=all_markers, dashes=all_dashes, palette=all_palette, measure_1="weak"
 )
