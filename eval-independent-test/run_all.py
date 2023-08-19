@@ -172,7 +172,7 @@ def run_grenedalf_diversity( n, c, k, w, df, sample ):
 
 def run_grenedalf_fst_sample( n1, n2, c1, c2, k1, k2, w, method ):
     file_id = f"sync-cov1_{c1}-cov2_{c2}-der1_{k1}-der2_{k2}-win_{w}"
-    out_id = file_id + f"-pool1_{n1}-pool2_{n2}"
+    out_id = file_id + f"-pool1_{n1}-pool2_{n2}-method_{method}"
 
     args = {}
     args["fileid"] = f"../sync/{file_id}.sync"
@@ -219,6 +219,107 @@ def run_grenedalf( params, df ):
     run_grenedalf_fst( n1, n2, c1, c2, k1, k2, w, df )
 
 # ------------------------------------------------------------
+#     PoPoolation
+# ------------------------------------------------------------
+
+def get_popoolation_result(file, trim_fst_pair=False):
+    with open(file) as f:
+        line = f.readline()
+    try:
+        # PoPoolation stores the resulting value in the last column.
+        # Go get it. If it's FST, we also need to remove the sample names.
+        last = line.split('\t')[-1]
+        if trim_fst_pair:
+            last = last.split('=')[-1]
+        val = float(last)
+    except Exception as e:
+        val = float("nan")
+    return val
+
+
+
+def run_popoolation_diversity_sample( n, c, k, w, measure ):
+    file_id = f"mpileup-cov_{c}-der_{k}-win_{w}"
+    out_id = file_id + f"-pool_{n}-measure_{measure}"
+
+    args = {}
+    args["fileid"] = f"../mpileup/{file_id}.pileup"
+    args["poolsize"] = n
+    args["windowsize"] = w
+    args["measure"] = measure
+    args["outid"] = out_id
+
+    run_script("popoolation/diversity.sh", args)
+    return out_id
+
+def run_popoolation_diversity( n, c, k, w, df, sample ):
+    # n: pool size
+    # c: coverage
+    # k: derived allele count
+    # w: window size
+    row_index = len(df) - 1
+
+    # Names in the table and in popoolation are different
+    measure_name_map = {
+        "theta_pi":  "pi",
+        "theta_w":   "theta",
+        "tajimas_d": "d"
+    }
+
+    # Need to run for each measure independently
+    for measure in [ "theta_pi", "theta_w", "tajimas_d" ]:
+        df_col = 'popoolation.' + measure + '_' + str(sample)
+        out_id = run_popoolation_diversity_sample( n, c, k, w, measure_name_map[measure] )
+        val = get_popoolation_result(f"popoolation/diversity/{out_id}")
+        df.loc[row_index, df_col] = val
+
+def run_popoolation_fst_sample( n1, n2, c1, c2, k1, k2, w, method ):
+    file_id = f"sync-cov1_{c1}-cov2_{c2}-der1_{k1}-der2_{k2}-win_{w}"
+    out_id = file_id + f"-pool1_{n1}-pool2_{n2}-method_{method}"
+
+    args = {}
+    args["fileid"] = f"../sync/{file_id}.sync"
+    args["poolsizes"] = '"' + str(n1) + ':' + str(n2) + '"'
+    args["windowsize"] = w
+    args["method"] = method
+    args["outid"] = out_id
+
+    run_script("popoolation/fst.sh", args)
+    return out_id
+
+def run_popoolation_fst( n1, n2, c1, c2, k1, k2, w, df ):
+    # n: pool size
+    # c: coverage
+    # k: derived allele count
+    # w: window size
+    row_index = len(df) - 1
+
+    # Names in the table and in popoolation are different
+    method_name_map = {
+        "karlsson": "fst_karlsson",
+        "kofler": "fst_kofler"
+    }
+
+    # Need to run for each method independently
+    for method in ["kofler","karlsson"]:
+        df_col = 'popoolation.' + method_name_map[method]
+        out_id = run_popoolation_fst_sample( n1, n2, c1, c2, k1, k2, w, method )
+        df.loc[row_index, df_col] = get_popoolation_result(f"popoolation/fst/{out_id}.fst", trim_fst_pair=True)
+
+def run_popoolation( params, df ):
+    # n: pool size
+    # c: coverage
+    # k: derived allele count
+    # w: window size
+    n1, n2, c1, c2, k1, k2, w = params
+    row_index = len(df) - 1
+
+    # Go through all statistics, compute them, and set them in the df columns of the last row
+    # run_popoolation_diversity( n1, c1, k1, w, df, 1 )
+    # run_popoolation_diversity( n2, c2, k2, w, df, 2 )
+    run_popoolation_fst( n1, n2, c1, c2, k1, k2, w, df )
+
+# ------------------------------------------------------------
 #     Main
 # ------------------------------------------------------------
 
@@ -241,9 +342,15 @@ def main():
         'grenedalf.fst_nei', 'grenedalf.fst_hudson',
         'grenedalf.fst_karlsson', 'grenedalf.fst_kofler'
     ]
+    popoolation_cols = [
+        'popoolation.theta_pi_1', 'popoolation.theta_pi_2',
+        'popoolation.theta_w_1', 'popoolation.theta_w_2',
+        'popoolation.tajimas_d_1', 'popoolation.tajimas_d_2',
+        'popoolation.fst_karlsson', 'popoolation.fst_kofler'
+    ]
 
     # Create the dataframe for all results
-    df = pd.DataFrame(columns=[fixed_cols + indep_cols + grenedalf_cols])
+    df = pd.DataFrame(columns=[fixed_cols + indep_cols + grenedalf_cols + popoolation_cols])
 
     # Run all tests of the whole param space
     for params in tqdm.tqdm(param_space):
@@ -265,8 +372,9 @@ def main():
         df.loc[row_index, 'window_size']     = w
 
         # Run all implementations
-        # run_independent_implementation( params, df )
+        run_independent_implementation( params, df )
         run_grenedalf( params, df )
+        run_popoolation( params, df )
 
     # Store the whole dataframe
     df.to_csv(outtable, index=False, sep='\t')
