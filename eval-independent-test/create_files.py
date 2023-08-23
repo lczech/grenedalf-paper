@@ -66,12 +66,7 @@ def generate_sync_sample(coverage_1, coverage_2, derived_count_1, derived_count_
 #     read table
 # ------------------------------------------------------------
 
-def main():
-    # Read the tab-delimited table using pandas
-    infile = "independent_check_statistics.tsv"
-    df = pd.read_csv(infile, delimiter='\t')
-    # print(df)
-
+def create_from_df(df):
     # Iterate over each row
     for _, row in df.iterrows():
         generate_mpileup_sample(
@@ -91,6 +86,35 @@ def main():
             int(row['derived_count_2']),
             int(row['window_size'])
         )
+
+def create_from_param_space(param_space):
+    for params in param_space:
+        n1, n2, c1, c2, k1, k2, w = params
+
+        generate_mpileup_sample(
+            int(c1),
+            int(k1),
+            int(w)
+        )
+        generate_mpileup_sample(
+            int(c2),
+            int(k2),
+            int(w)
+        )
+        generate_sync_sample(
+            int(c1),
+            int(c2),
+            int(k1),
+            int(k2),
+            int(w)
+        )
+
+def main():
+    # Read the tab-delimited table using pandas
+    infile = "independent_check_statistics.tsv"
+    df = pd.read_csv(infile, delimiter='\t')
+    # print(df)
+    create_from_df(df)
 
 if __name__ == '__main__':
     main()

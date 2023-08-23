@@ -315,8 +315,8 @@ def run_popoolation( params, df ):
     row_index = len(df) - 1
 
     # Go through all statistics, compute them, and set them in the df columns of the last row
-    # run_popoolation_diversity( n1, c1, k1, w, df, 1 )
-    # run_popoolation_diversity( n2, c2, k2, w, df, 2 )
+    run_popoolation_diversity( n1, c1, k1, w, df, 1 )
+    run_popoolation_diversity( n2, c2, k2, w, df, 2 )
     run_popoolation_fst( n1, n2, c1, c2, k1, k2, w, df )
 
 # ------------------------------------------------------------

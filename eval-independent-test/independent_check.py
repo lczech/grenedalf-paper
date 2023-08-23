@@ -141,7 +141,14 @@ def theta_w(
                 den += binom.pmf(m, c_ell, k_val/n) / k_val
         to_return += 1/den
 
-    a1 = harmonic(n-1, 1)
+    # Up until the equations document version 2023-08-02, we had an algebraic
+    # mistake in the equation here, where we had an additional harmonic a_n
+    # in the final estimator. It was just a mistake in the document, but made
+    # it into the code here (line below). We fixed this now, but keep this line
+    # here in order to back-check later in case that's needed.
+    # See also the `test-watterson` directory here for the simulation test
+    # that we did to make sure that this was just an algebraic mistake.
+    a1 = 1.0 # harmonic(n-1, 1)
     return to_return / a1 / len(c)
 
 
