@@ -17,12 +17,22 @@ from pandas import DataFrame
 from numpy import sqrt
 from scipy.stats import binom
 
+# Speed up the repetitive part
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
 def harmonic(n: float, power: float) -> float:
     """Returns the nth harmonic number of type power"""
     int_n = round(n)
     return sum([1/x**power for x in range(1, int_n+1)])
 
 
+@lru_cache(maxsize=None)
+def binom_pmf(r, n, p):
+    return binom.pmf(r, n, p)
+
+
+@lru_cache(maxsize=None)
 def pi_within(
     n1: int, c1: int, k1: int, n2: int, c2: int, k2: int
 ) -> float:
@@ -47,6 +57,7 @@ def pi_within(
     return (pi_one + pi_two) / 2.
 
 
+@lru_cache(maxsize=None)
 def pi_between(
     n1: int, c1: int, k1: int, n2: int, c2: int, k2: int
 ) -> float:
@@ -67,6 +78,7 @@ def pi_between(
     return 1 - f11*f21 - f10*f20
 
 
+@lru_cache(maxsize=None)
 def pi_total(
     n1: int, c1: int, k1: int, n2: int, c2: int, k2: int
 ) -> float:
@@ -84,6 +96,15 @@ def pi_total(
     pi_b = pi_between(n1, c1, k1, n2, c2, k2)
     return (pi_w + pi_b) / 2.
 
+
+@lru_cache(maxsize=None)
+def theta_pi_denom( n, c_ell, b ):
+    den = 0.
+    for m in range(b, c_ell - b + 1):
+        pre_factor = 2 * m * (c_ell - m) / c_ell / (c_ell - 1)
+        for k_val in range(1, n):
+            den += pre_factor * binom_pmf(m, c_ell, k_val/n) / k_val
+    return den
 
 def theta_pi(
     n: int,
@@ -107,14 +128,18 @@ def theta_pi(
         f1 = k_ell / c_ell
         f0 = 1 - f1
         num = c_ell / (c_ell - 1) * (1 - f1**2 - f0**2)
-        den = 0.
-        for m in range(b, c_ell - b + 1):
-            pre_factor = 2 * m * (c_ell - m) / c_ell / (c_ell - 1)
-            for k_val in range(1, n):
-                den += pre_factor * binom.pmf(m, c_ell, k_val/n) / k_val
+        den = theta_pi_denom( n, c_ell, b )
         to_return += num / den
     return to_return / len(c)
 
+
+@lru_cache(maxsize=None)
+def theta_w_denom( n, c_ell, b ):
+    den = 0.
+    for m in range(b, c_ell - b + 1):
+        for k_val in range(1, n):
+            den += binom_pmf(m, c_ell, k_val/n) / k_val
+    return den
 
 def theta_w(
     n: int,
@@ -135,11 +160,13 @@ def theta_w(
     for c_ell, k_ell in zip(c, k):
         if k_ell < b or (c_ell - k_ell) < b:
             continue
-        den = 0.
-        for m in range(b, c_ell - b + 1):
-            for k_val in range(1, n):
-                den += binom.pmf(m, c_ell, k_val/n) / k_val
-        to_return += 1/den
+        to_return += 1.0 / theta_w_denom( n, c_ell, b )
+
+        # den = 0.
+        # for m in range(b, c_ell - b + 1):
+        #     for k_val in range(1, n):
+        #         den += binom_pmf(m, c_ell, k_val/n) / k_val
+        # to_return += 1/den
 
     # Up until the equations document version 2023-08-02, we had an algebraic
     # mistake in the equation here, where we had an additional harmonic a_n
@@ -152,6 +179,7 @@ def theta_w(
     return to_return / a1 / len(c)
 
 
+@lru_cache(maxsize=None)
 def f_star(n: int) -> float:
     """Equation (20)"""
     a1 = harmonic(n-1, 1)
@@ -163,6 +191,7 @@ def n_tilde(n: int, c: int) -> float:
     return n * (1 - ((n-1)/n)**c)
 
 
+@lru_cache(maxsize=None)
 def alpha_star(n: int) -> float:
     """Equation (21)"""
     f = f_star(n)
@@ -174,6 +203,7 @@ def alpha_star(n: int) -> float:
     return term_1 + term_2 + term_3 + term_4
 
 
+@lru_cache(maxsize=None)
 def beta_star(n: int) -> float:
     """Equation (22)"""
     f = f_star(n)

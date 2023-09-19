@@ -2,6 +2,7 @@
 
 import sys, os
 import pandas as pd
+import tqdm
 
 os.makedirs("mpileup", exist_ok=True)
 os.makedirs("sync", exist_ok=True)
@@ -16,7 +17,7 @@ derived_allele = 'C'
 
 def generate_mpileup(file_id, coverage, derived_count, window_size):
     output_file = f"mpileup/{file_id}.pileup"
-    print(f"Generating mpileup file: {output_file}")
+    # print(f"Generating mpileup file: {output_file}")
 
     with open(output_file, 'w') as f:
         for pos in range(1, window_size + 1):
@@ -45,7 +46,7 @@ def write_sync_sample( filehandle, coverage, derived_count ):
 
 def generate_sync(file_id, coverage_1, coverage_2, derived_count_1, derived_count_2, window_size):
     output_file = f"sync/{file_id}.sync"
-    print(f"Generating sync file: {output_file}")
+    # print(f"Generating sync file: {output_file}")
 
     with open(output_file, 'w') as f:
         for pos in range(1, window_size + 1):
@@ -88,7 +89,8 @@ def create_from_df(df):
         )
 
 def create_from_param_space(param_space):
-    for params in param_space:
+    print("Creating files")
+    for params in tqdm.tqdm(param_space):
         n1, n2, c1, c2, k1, k2, w = params
 
         generate_mpileup_sample(

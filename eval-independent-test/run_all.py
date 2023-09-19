@@ -325,6 +325,9 @@ def run_popoolation( params, df ):
 
 # Run everything but the bagel
 def main():
+    # Create the files that we need to run grenedalf and popoolation
+    create_files.create_from_param_space( param_space )
+
     # Columns of the resulting dataframe that we are filling
     fixed_cols = [
         'pool_size_1', 'pool_size_2', 'coverage_1', 'coverage_2',
@@ -353,6 +356,7 @@ def main():
     df = pd.DataFrame(columns=[fixed_cols + indep_cols + grenedalf_cols + popoolation_cols])
 
     # Run all tests of the whole param space
+    print("Analyzing files")
     for params in tqdm.tqdm(param_space):
         # Set up the parameters as needed
         n1, n2, c1, c2, k1, k2, w = params
