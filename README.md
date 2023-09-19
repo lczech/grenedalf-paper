@@ -17,13 +17,17 @@ We run the following tests here:
   * `benchmark-grenenet`: Benchmarks on real-world data from GrENE-net, subsetting one or two files to increasing numbers of positions to show scaling with respect to the genome length.
   * `benchmark-random`: Simple benchmarks based on randomly generated files, as a lower boundary of how much faster grenedalf is compared to its competitors.
   * `benchmark-samples`: Benchmarks on real-world data from GrENE-net, increasing the number of files to show scaling wrt number of samples.
-  * `benchmark-scaling`: Benchmarks for strong and weak scaling of grenedalf on multi-core systems.
+  * `benchmark-scaling`: Benchmarks for strong and weak scaling of grenedalf on multi-core systems, with a small dataset.
+  * `benchmark-scaling-fst`: Benchmarks for strong and weak scaling of grenedalf on multi-core systems, with a larger dataset that shows better scaling.
 
 Furthermore, we have some auxiliary tests and comparisons:
 
   * `eval-bug-exam`: Examination of the two bugs in PoPoolation Tajima's D implementation.
   * `eval-corr-grenenet`: Test how the results from grenedalf correlate with those of other tools.
-  * `eval-fst-biases`: Evaluation of the biases of different Pool-seq estimators of FST.
+  * `eval-fst-biases`: Evaluation of the biases of different Pool-seq estimators of FST, as shown in our equations document.
   * `eval-grenenet`: Quick test to assess the overall gain of grenedalf for our GrENE-net project.
+  * `eval-independent-test`: An independent bare-bone Python implementation of our equations, to check that the results of grenedalf are exactly as expected.
+  * `example-cathedral`: A prototype implementation of the cathedral plot for fst.
+  * `example-fst-ordination`: A simple large-scale example of using grenedalf on thousands of samples.
 
 See the respective subdirectories for details.
