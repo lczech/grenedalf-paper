@@ -11,6 +11,7 @@ done
 # Set the args that we need here
 OUT="S1-20000000"
 DATA="../../benchmark-grenenet/data/subsets-mpileup/S1-20000000.mpileup"
+WINDOW=$window
 
 # We use the same script for all measures in PoPoolation, for simplicity
 MEASURE=$measure
@@ -29,10 +30,10 @@ echo "Start `date`"
 
 perl ${POPOOL}/Variance-sliding.pl \
     --input ${DATA} \
-    --output "diversity/${OUT}.${MEASURE}" \
+    --output "diversity/${OUT}-${WINDOW}.${MEASURE}" \
     --measure ${MEASURE} \
-    --window-size 1000 \
-    --step-size 1000 \
+    --window-size ${WINDOW} \
+    --step-size ${WINDOW} \
     --fastq-type sanger \
     --min-qual 10 \
     --pool-size 100 \
@@ -41,7 +42,7 @@ perl ${POPOOL}/Variance-sliding.pl \
     --max-coverage 1000 \
     --min-covered-fraction 0.0 \
     --no-discard-deletions \
-    > logs/${MEASURE}-${OUT}.log 2>&1
+    > logs/${MEASURE}-${OUT}-${WINDOW}.log 2>&1
 
 END=$(date +%s.%N)
 DIFF=$(echo "$END - $START" | bc)

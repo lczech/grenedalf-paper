@@ -16,12 +16,14 @@ sizes=[ 1 ]
 
 # Diversity
 
-run_suite( sizes, "grenedalf/diversity.sh" )
-run_suite( sizes, "grenedalf/diversity.sh", { "bugs": "1" })
-run_suite( sizes, "npstat/diversity.sh" )
-run_suite( sizes, "popoolation/diversity.sh", { "measure": "d" })
-run_suite( sizes, "popoolation/diversity.sh", { "measure": "pi" })
-run_suite( sizes, "popoolation/diversity.sh", { "measure": "theta" })
+# for window in [100000]:
+for window in [1000, 20000, 100000]:
+    run_suite( sizes, "grenedalf/diversity.sh", {   "window": window })
+    run_suite( sizes, "grenedalf/diversity.sh", {   "window": window, "bugs": "1" })
+    run_suite( sizes, "npstat/diversity.sh", {      "window": window } )
+    run_suite( sizes, "popoolation/diversity.sh", { "window": window, "measure": "d" })
+    run_suite( sizes, "popoolation/diversity.sh", { "window": window, "measure": "pi" })
+    run_suite( sizes, "popoolation/diversity.sh", { "window": window, "measure": "theta" })
 
 # FST
 

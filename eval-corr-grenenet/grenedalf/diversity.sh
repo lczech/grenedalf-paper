@@ -12,6 +12,8 @@ done
 OUT="S1-20000000"
 DATA="../../benchmark-grenenet/data/subsets-mpileup/S1-20000000.mpileup"
 GRENEDALF="../../software/grenedalf/bin/grenedalf"
+# GRENEDALF="/home/lucas/Projects/grenedalf-paper/software/grenedalf-pre-0.3.0/bin/grenedalf"
+WINDOW=$window
 
 # We need both runs, for comparing with npstat and with popoolation
 if [[ -z "$bugs" ]]; then
@@ -38,17 +40,18 @@ $GRENEDALF diversity \
     ${INPATHS} \
     $BUGS \
     --window-type sliding \
-    --window-sliding-width 1000 \
+    --window-sliding-width ${WINDOW} \
     --filter-sample-min-count 2 \
     --filter-sample-min-coverage 4 \
     --filter-sample-max-coverage 1000 \
     --pileup-min-base-qual 10 \
     --pool-sizes 100 \
     --out-dir "diversity" \
-    --file-suffix "-${OUT}" \
+    --file-suffix "-${OUT}-${WINDOW}" \
     --na-entry nan \
     --allow-file-overwriting \
-    > "logs/diversity-${OUT}.log" 2>&1
+    > "logs/diversity-${OUT}-${WINDOW}.log" 2>&1
+    # --filter-total-snp-min-count 2 \
 
 # grenedalf can easily use the higher coverage,
 # but in order for a fair comparison, we use the same value here

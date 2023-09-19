@@ -14,6 +14,7 @@ done
 # Set the args that we need here
 OUT="S1-20000000"
 DATA="../../benchmark-grenenet/data/subsets-mpileup/S1-20000000.mpileup"
+WINDOW=$window
 
 echo "Start `date`"
 START=$(date +%s.%N)
@@ -24,13 +25,13 @@ START=$(date +%s.%N)
 
 ../../software/npstat/npstat \
     -n 100 \
-    -l 1000 \
+    -l ${WINDOW} \
     -nolowfreq 2 \
     -mincov 4 \
     -maxcov 1000 \
     -minqual 10 \
     ${DATA} \
-    > logs/diversity-${OUT}.log 2>&1
+    > logs/diversity-${OUT}-${WINDOW}.log 2>&1
 
 END=$(date +%s.%N)
 DIFF=$(echo "$END - $START" | bc)
@@ -40,4 +41,4 @@ echo "Internal time: ${DIFF}"
 
 # npstat just produces the file where the original is.
 # let's move it to a better place.
-mv ${DATA}.stats diversity/diversity-${OUT}.stats
+mv ${DATA}.stats diversity/diversity-${OUT}-${WINDOW}.stats

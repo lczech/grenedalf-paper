@@ -11,6 +11,8 @@ done
 # Set the args that we need here
 OUT="S1S2-20000000"
 DATA="../../benchmark-grenenet/data/subsets-sync/S1S2-20000000.sync"
+# GRENEDALF="../../software/grenedalf-pre-0.3.0/bin/grenedalf"
+# GRENEDALF="/home/lucas/Dropbox/GitHub/grenedalf/bin/grenedalf"
 GRENEDALF="../../software/grenedalf/bin/grenedalf"
 WINDOW=$window
 METHOD=$method
@@ -54,12 +56,15 @@ $GRENEDALF fst \
     --method ${METHOD} \
     --out-dir "fst" \
     --file-suffix "-${OUT}-${WINDOW}-${METHOD}" \
-    --filter-sample-min-count 2 \
+    --filter-total-snp-min-count 2 \
     --filter-sample-min-coverage 4 \
     --filter-sample-max-coverage 100 \
     --na-entry nan \
     --allow-file-overwriting \
     > "logs/fst-${OUT}-${WINDOW}-${METHOD}.log" 2>&1
+    # --filter-total-min-coverage 4 \
+    # --filter-total-max-coverage 100 \
+    # --filter-sample-min-count 2 \
 
 END=$(date +%s.%N)
 DIFF=$(echo "$END - $START" | bc)
