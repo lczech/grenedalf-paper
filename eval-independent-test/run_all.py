@@ -154,15 +154,16 @@ def run_grenedalf_diversity( n, c, k, w, df, sample ):
     # w: window size
     row_index = len(df) - 1
 
-    # Names in the table and in grenedalf are different
-    measure_name_map = {
-        "theta_pi":  "1.theta_pi_rel",
-        "theta_w":   "1.theta_watterson_rel",
-        "tajimas_d": "1.tajimas_d"
-    }
-
     # Run for all measures once. no need to repeat
     out_id = run_grenedalf_diversity_sample( n, c, k, w )
+    file_id = f"mpileup-cov_{c}-der_{k}-win_{w}"
+
+    # Names in the table and in grenedalf are different
+    measure_name_map = {
+        "theta_pi":  file_id + ".1.theta_pi",
+        "theta_w":   file_id + ".1.theta_watterson",
+        "tajimas_d": file_id + ".1.tajimas_d"
+    }
 
     for measure in [ "theta_pi", "theta_w", "tajimas_d" ]:
         df_col = 'grenedalf.' + measure + '_' + str(sample)
@@ -174,9 +175,16 @@ def run_grenedalf_fst_sample( n1, n2, c1, c2, k1, k2, w, method ):
     file_id = f"sync-cov1_{c1}-cov2_{c2}-der1_{k1}-der2_{k2}-win_{w}"
     out_id = file_id + f"-pool1_{n1}-pool2_{n2}-method_{method}"
 
+    # We need to make a pool size file, and specify the two sample names
+    os.makedirs("poolsizes", exist_ok=True)
+    with open(f"poolsizes/{out_id}.pool", "w") as f:
+        f.write( f"{file_id}.1\t{n1}\n")
+        f.write( f"{file_id}.2\t{n2}\n")
+
     args = {}
     args["fileid"] = f"../sync/{file_id}.sync"
-    args["poolsizes"] = '"' + str(n1) + ',' + str(n2) + '"'
+    # args["poolsizes"] = '"' + str(n1) + ',' + str(n2) + '"'
+    args["poolsizes"] = f"../poolsizes/{out_id}.pool"
     args["windowsize"] = w
     args["method"] = method
     args["outid"] = out_id
@@ -190,6 +198,7 @@ def run_grenedalf_fst( n1, n2, c1, c2, k1, k2, w, df ):
     # k: derived allele count
     # w: window size
     row_index = len(df) - 1
+    file_id = f"sync-cov1_{c1}-cov2_{c2}-der1_{k1}-der2_{k2}-win_{w}"
 
     # Names in the table and in grenedalf are different
     method_name_map = {
@@ -203,7 +212,8 @@ def run_grenedalf_fst( n1, n2, c1, c2, k1, k2, w, df ):
     for method in ["unbiased-nei","unbiased-hudson","kofler","karlsson"]:
         df_col = 'grenedalf.' + method_name_map[method]
         out_id = run_grenedalf_fst_sample( n1, n2, c1, c2, k1, k2, w, method )
-        df.loc[row_index, df_col] = get_grenedalf_result(f"grenedalf/fst/fst-{out_id}.csv", "1.2")
+        tab_col = f"{file_id}.1:{file_id}.2.fst"
+        df.loc[row_index, df_col] = get_grenedalf_result(f"grenedalf/fst/fst-{out_id}.csv", tab_col)
 
 def run_grenedalf( params, df ):
     # n: pool size
@@ -378,7 +388,7 @@ def main():
         # Run all implementations
         run_independent_implementation( params, df )
         run_grenedalf( params, df )
-        run_popoolation( params, df )
+        # run_popoolation( params, df )
 
     # Store the whole dataframe
     df.to_csv(outtable, index=False, sep='\t')

@@ -19,16 +19,18 @@ START=$(date +%s.%N)
 
 ${GRENEDALF} diversity \
     --pileup-path ${fileid} \
-    --window-type sliding \
-    --window-sliding-width ${windowsize} \
+    --window-type interval \
+    --window-interval-width ${windowsize} \
     --filter-sample-min-count 2 \
-    --filter-sample-min-coverage 2 \
+    --filter-sample-min-read-depth 2 \
     --pileup-min-base-qual 0 \
     --pool-sizes ${poolsize} \
-    --measure "all" \
+    --window-average-policy "window-length" \
+    --tajima-d-denominator-policy "provided-min-read-depth" \
     --out-dir "diversity" \
     --file-suffix "-${outid}" \
     --na-entry nan \
+    --no-extra-columns \
     --allow-file-overwriting \
     > "logs/diversity-${outid}.log" 2>&1
 

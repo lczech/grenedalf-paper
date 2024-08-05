@@ -19,10 +19,12 @@ START=$(date +%s.%N)
 
 ${GRENEDALF} fst \
     --sync-path ${fileid} \
-    --window-type sliding \
-    --window-sliding-width ${windowsize} \
+    --window-type interval \
+    --window-interval-width ${windowsize} \
     --pool-sizes ${poolsizes} \
     --method ${method} \
+    --window-average-policy "window-length" \
+    --no-extra-columns \
     --out-dir "fst" \
     --file-suffix "-${outid}" \
     --na-entry nan \
