@@ -28,13 +28,13 @@ START=$(date +%s.%N)
 
 $GRENEDALF diversity \
     ${INPATHS} \
-    --window-type sliding \
-    --window-sliding-width 1000 \
+    --window-type interval \
+    --window-interval-width 1000 \
     --filter-sample-min-count 2 \
-    --filter-sample-min-coverage 4 \
-    --filter-sample-max-coverage 1000 \
+    --filter-sample-min-read-depth 4 \
+    --filter-sample-max-read-depth 1000 \
     --pool-sizes 100 \
-    --popoolation-corrected-tajimas-d \
+    --window-average-policy valid-loci \
     --out-dir "diversity-bam" \
     --file-suffix "-${OUT}" \
     --threads 1 \
