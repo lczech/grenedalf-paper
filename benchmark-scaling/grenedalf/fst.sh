@@ -46,16 +46,18 @@ START=$(date +%s.%N)
 
 $GRENEDALF fst \
     ${INPATHS} \
-    --window-type sliding \
-    --window-sliding-width 1000 \
+    --window-type genome \
+    --window-average-policy valid-snps \
     --pool-sizes 100 \
     --method unbiased-nei \
-    --omit-na-windows \
+    --no-nan-windows \
     --out-dir "fst-${scaling}" \
     --file-suffix "-${OUT}" \
     --threads ${size} \
     --allow-file-overwriting \
     > "logs/fst-${OUT}.log" 2>&1
+
+#    --window-interval-width 1000 \
 
 END=$(date +%s.%N)
 DIFF=$(echo "$END - $START" | bc)

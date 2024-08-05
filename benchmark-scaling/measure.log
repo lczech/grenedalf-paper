@@ -1,0 +1,1152 @@
+=========================================
+
+At 2024-07-18 03:00:51	
+Running grenedalf/diversity-strong.sh
+  - type=bam
+  - size=1
+
+    Iteration 0
+    Time 795.972998259s
+    Mem  74.08203125Mb
+    User 787.34
+    Wall 13:16.00
+
+min 795.972998259
+max 795.972998259
+avg 795.972998259
+mem 74.08203125
+
+=========================================
+
+At 2024-07-18 03:14:08	
+Running grenedalf/diversity-strong.sh
+  - type=bam
+  - size=2
+
+    Iteration 0
+    Time 482.693635634s
+    Mem  74.9453125Mb
+    User 952.88
+    Wall 8:02.71
+
+min 482.693635634
+max 482.693635634
+avg 482.693635634
+mem 74.9453125
+
+=========================================
+
+At 2024-07-18 03:22:12	
+Running grenedalf/diversity-strong.sh
+  - type=bam
+  - size=3
+
+    Iteration 0
+    Time 377.469312947s
+    Mem  76.0Mb
+    User 1104.58
+    Wall 6:17.49
+
+min 377.469312947
+max 377.469312947
+avg 377.469312947
+mem 76.0
+
+=========================================
+
+At 2024-07-18 03:28:31	
+Running grenedalf/diversity-strong.sh
+  - type=bam
+  - size=4
+
+    Iteration 0
+    Time 342.37757389s
+    Mem  76.37109375Mb
+    User 1265.55
+    Wall 5:42.40
+
+min 342.37757389
+max 342.37757389
+avg 342.37757389
+mem 76.37109375
+
+=========================================
+
+At 2024-07-18 03:34:14	
+Running grenedalf/diversity-strong.sh
+  - type=bam
+  - size=5
+
+    Iteration 0
+    Time 343.305663926s
+    Mem  76.8515625Mb
+    User 1418.81
+    Wall 5:43.32
+
+min 343.305663926
+max 343.305663926
+avg 343.305663926
+mem 76.8515625
+
+=========================================
+
+At 2024-07-18 03:39:58	
+Running grenedalf/diversity-strong.sh
+  - type=bam
+  - size=6
+
+    Iteration 0
+    Time 336.817129283s
+    Mem  76.97265625Mb
+    User 1545.89
+    Wall 5:36.83
+
+min 336.817129283
+max 336.817129283
+avg 336.817129283
+mem 76.97265625
+
+=========================================
+
+At 2024-07-18 03:45:36	
+Running grenedalf/diversity-strong.sh
+  - type=bam
+  - size=7
+
+    Iteration 0
+    Time 330.307807853s
+    Mem  77.36328125Mb
+    User 1663.83
+    Wall 5:30.33
+
+min 330.307807853
+max 330.307807853
+avg 330.307807853
+mem 77.36328125
+
+=========================================
+
+At 2024-07-18 03:51:07	
+Running grenedalf/diversity-strong.sh
+  - type=bam
+  - size=8
+
+    Iteration 0
+    Time 331.121164528s
+    Mem  77.4609375Mb
+    User 1769.09
+    Wall 5:31.14
+
+min 331.121164528
+max 331.121164528
+avg 331.121164528
+mem 77.4609375
+
+=========================================
+
+At 2024-07-18 03:56:40	
+Running grenedalf/diversity-weak.sh
+  - type=bam
+  - size=1
+
+    Iteration 0
+    Time 100.25156804s
+    Mem  17.65234375Mb
+    User 99.69
+    Wall 1:40.28
+
+min 100.25156804
+max 100.25156804
+avg 100.25156804
+mem 17.65234375
+
+=========================================
+
+At 2024-07-18 03:58:21	
+Running grenedalf/diversity-weak.sh
+  - type=bam
+  - size=2
+
+    Iteration 0
+    Time 160.542804081s
+    Mem  27.03515625Mb
+    User 269.67
+    Wall 2:40.57
+
+min 160.542804081
+max 160.542804081
+avg 160.542804081
+mem 27.03515625
+
+=========================================
+
+At 2024-07-18 04:01:03	
+Running grenedalf/diversity-weak.sh
+  - type=bam
+  - size=3
+
+    Iteration 0
+    Time 198.974210568s
+    Mem  35.28515625Mb
+    User 466.06
+    Wall 3:19.00
+
+min 198.974210568
+max 198.974210568
+avg 198.974210568
+mem 35.28515625
+
+=========================================
+
+At 2024-07-18 04:04:23	
+Running grenedalf/diversity-weak.sh
+  - type=bam
+  - size=4
+
+    Iteration 0
+    Time 223.335046946s
+    Mem  43.6875Mb
+    User 681.34
+    Wall 3:43.36
+
+min 223.335046946
+max 223.335046946
+avg 223.335046946
+mem 43.6875
+
+=========================================
+
+At 2024-07-18 04:08:07	
+Running grenedalf/diversity-weak.sh
+  - type=bam
+  - size=5
+
+    Iteration 0
+    Time 237.202129165s
+    Mem  51.8984375Mb
+    User 878.08
+    Wall 3:57.23
+
+min 237.202129165
+max 237.202129165
+avg 237.202129165
+mem 51.8984375
+
+=========================================
+
+At 2024-07-18 04:12:05	
+Running grenedalf/diversity-weak.sh
+  - type=bam
+  - size=6
+
+    Iteration 0
+    Time 259.416056493s
+    Mem  60.546875Mb
+    User 1102.26
+    Wall 4:19.45
+
+min 259.416056493
+max 259.416056493
+avg 259.416056493
+mem 60.546875
+
+=========================================
+
+At 2024-07-18 04:16:26	
+Running grenedalf/diversity-weak.sh
+  - type=bam
+  - size=7
+
+    Iteration 0
+    Time 291.62004722s
+    Mem  68.78125Mb
+    User 1417.37
+    Wall 4:51.64
+
+min 291.62004722
+max 291.62004722
+avg 291.62004722
+mem 68.78125
+
+=========================================
+
+At 2024-07-18 04:21:18	
+Running grenedalf/diversity-weak.sh
+  - type=bam
+  - size=8
+
+    Iteration 0
+    Time 331.796009559s
+    Mem  77.6015625Mb
+    User 1771.34
+    Wall 5:31.82
+
+min 331.796009559
+max 331.796009559
+avg 331.796009559
+mem 77.6015625
+
+=========================================
+
+At 2024-07-18 04:26:51	
+Running grenedalf/fst-strong.sh
+  - type=bam
+  - size=1
+
+    Iteration 0
+    Time 799.03356873s
+    Mem  73.359375Mb
+    User 794.89
+    Wall 13:19.05
+
+min 799.03356873
+max 799.03356873
+avg 799.03356873
+mem 73.359375
+
+=========================================
+
+At 2024-07-18 04:40:11	
+Running grenedalf/fst-strong.sh
+  - type=bam
+  - size=2
+
+    Iteration 0
+    Time 480.164781688s
+    Mem  74.5859375Mb
+    User 950.45
+    Wall 8:00.18
+
+min 480.164781688
+max 480.164781688
+avg 480.164781688
+mem 74.5859375
+
+=========================================
+
+At 2024-07-18 04:48:12	
+Running grenedalf/fst-strong.sh
+  - type=bam
+  - size=3
+
+    Iteration 0
+    Time 375.34493266s
+    Mem  75.10546875Mb
+    User 1101.14
+    Wall 6:15.36
+
+min 375.34493266
+max 375.34493266
+avg 375.34493266
+mem 75.10546875
+
+=========================================
+
+At 2024-07-18 04:54:29	
+Running grenedalf/fst-strong.sh
+  - type=bam
+  - size=4
+
+    Iteration 0
+    Time 335.844813217s
+    Mem  75.6953125Mb
+    User 1252.81
+    Wall 5:35.86
+
+min 335.844813217
+max 335.844813217
+avg 335.844813217
+mem 75.6953125
+
+=========================================
+
+At 2024-07-18 05:00:06	
+Running grenedalf/fst-strong.sh
+  - type=bam
+  - size=5
+
+    Iteration 0
+    Time 334.030329881s
+    Mem  76.36328125Mb
+    User 1414.54
+    Wall 5:34.05
+
+min 334.030329881
+max 334.030329881
+avg 334.030329881
+mem 76.36328125
+
+=========================================
+
+At 2024-07-18 05:05:41	
+Running grenedalf/fst-strong.sh
+  - type=bam
+  - size=6
+
+    Iteration 0
+    Time 328.297631601s
+    Mem  76.78125Mb
+    User 1532.56
+    Wall 5:28.31
+
+min 328.297631601
+max 328.297631601
+avg 328.297631601
+mem 76.78125
+
+=========================================
+
+At 2024-07-18 05:11:10	
+Running grenedalf/fst-strong.sh
+  - type=bam
+  - size=7
+
+    Iteration 0
+    Time 321.748608436s
+    Mem  76.80859375Mb
+    User 1647.58
+    Wall 5:21.77
+
+min 321.748608436
+max 321.748608436
+avg 321.748608436
+mem 76.80859375
+
+=========================================
+
+At 2024-07-18 05:16:33	
+Running grenedalf/fst-strong.sh
+  - type=bam
+  - size=8
+
+    Iteration 0
+    Time 321.882348492s
+    Mem  76.7734375Mb
+    User 1761.89
+    Wall 5:21.90
+
+min 321.882348492
+max 321.882348492
+avg 321.882348492
+mem 76.7734375
+
+=========================================
+
+At 2024-07-18 05:21:56	
+Running grenedalf/fst-weak.sh
+  - type=bam
+  - size=1
+
+    Iteration 0
+    Time 0.02755694s
+    Mem  8.7265625Mb
+    User 0.03
+    Wall 0:00.05
+
+min 0.02755694
+max 0.02755694
+avg 0.02755694
+mem 8.7265625
+
+=========================================
+
+At 2024-07-18 05:21:57	
+Running grenedalf/fst-weak.sh
+  - type=bam
+  - size=2
+
+    Iteration 0
+    Time 153.803167289s
+    Mem  26.19921875Mb
+    User 259.85
+    Wall 2:33.83
+
+min 153.803167289
+max 153.803167289
+avg 153.803167289
+mem 26.19921875
+
+=========================================
+
+At 2024-07-18 05:24:32	
+Running grenedalf/fst-weak.sh
+  - type=bam
+  - size=3
+
+    Iteration 0
+    Time 189.151743769s
+    Mem  34.6640625Mb
+    User 448.39
+    Wall 3:09.17
+
+min 189.151743769
+max 189.151743769
+avg 189.151743769
+mem 34.6640625
+
+=========================================
+
+At 2024-07-18 05:27:42	
+Running grenedalf/fst-weak.sh
+  - type=bam
+  - size=4
+
+    Iteration 0
+    Time 217.140999922s
+    Mem  43.3203125Mb
+    User 670.40
+    Wall 3:37.16
+
+min 217.140999922
+max 217.140999922
+avg 217.140999922
+mem 43.3203125
+
+=========================================
+
+At 2024-07-18 05:31:20	
+Running grenedalf/fst-weak.sh
+  - type=bam
+  - size=5
+
+    Iteration 0
+    Time 230.035200422s
+    Mem  51.36328125Mb
+    User 861.96
+    Wall 3:50.06
+
+min 230.035200422
+max 230.035200422
+avg 230.035200422
+mem 51.36328125
+
+=========================================
+
+At 2024-07-18 05:35:11	
+Running grenedalf/fst-weak.sh
+  - type=bam
+  - size=6
+
+    Iteration 0
+    Time 248.473547016s
+    Mem  59.8984375Mb
+    User 1083.47
+    Wall 4:08.50
+
+min 248.473547016
+max 248.473547016
+avg 248.473547016
+mem 59.8984375
+
+=========================================
+
+At 2024-07-18 05:39:21	
+Running grenedalf/fst-weak.sh
+  - type=bam
+  - size=7
+
+    Iteration 0
+    Time 285.240966011s
+    Mem  68.390625Mb
+    User 1417.86
+    Wall 4:45.26
+
+min 285.240966011
+max 285.240966011
+avg 285.240966011
+mem 68.390625
+
+=========================================
+
+At 2024-07-18 05:44:07	
+Running grenedalf/fst-weak.sh
+  - type=bam
+  - size=8
+
+    Iteration 0
+    Time 320.374524007s
+    Mem  76.5859375Mb
+    User 1764.24
+    Wall 5:20.40
+
+min 320.374524007
+max 320.374524007
+avg 320.374524007
+mem 76.5859375
+
+=========================================
+
+At 2024-07-18 05:49:28	
+Running grenedalf/diversity-strong.sh
+  - type=sync
+  - size=1
+
+    Iteration 0
+    Time 326.397839968s
+    Mem  120.765625Mb
+    User 325.37
+    Wall 5:26.42
+
+min 326.397839968
+max 326.397839968
+avg 326.397839968
+mem 120.765625
+
+=========================================
+
+At 2024-07-18 05:54:56	
+Running grenedalf/diversity-strong.sh
+  - type=sync
+  - size=2
+
+    Iteration 0
+    Time 236.593351631s
+    Mem  123.79296875Mb
+    User 459.36
+    Wall 3:56.61
+
+min 236.593351631
+max 236.593351631
+avg 236.593351631
+mem 123.79296875
+
+=========================================
+
+At 2024-07-18 05:58:53	
+Running grenedalf/diversity-strong.sh
+  - type=sync
+  - size=3
+
+    Iteration 0
+    Time 211.05463757s
+    Mem  125.71875Mb
+    User 492.72
+    Wall 3:31.08
+
+min 211.05463757
+max 211.05463757
+avg 211.05463757
+mem 125.71875
+
+=========================================
+
+At 2024-07-18 06:02:25	
+Running grenedalf/diversity-strong.sh
+  - type=sync
+  - size=4
+
+    Iteration 0
+    Time 218.962088997s
+    Mem  125.8671875Mb
+    User 584.81
+    Wall 3:38.98
+
+min 218.962088997
+max 218.962088997
+avg 218.962088997
+mem 125.8671875
+
+=========================================
+
+At 2024-07-18 06:06:05	
+Running grenedalf/diversity-strong.sh
+  - type=sync
+  - size=5
+
+    Iteration 0
+    Time 218.819944633s
+    Mem  126.296875Mb
+    User 627.74
+    Wall 3:38.84
+
+min 218.819944633
+max 218.819944633
+avg 218.819944633
+mem 126.296875
+
+=========================================
+
+At 2024-07-18 06:09:45	
+Running grenedalf/diversity-strong.sh
+  - type=sync
+  - size=6
+
+    Iteration 0
+    Time 220.119843179s
+    Mem  126.91015625Mb
+    User 655.25
+    Wall 3:40.14
+
+min 220.119843179
+max 220.119843179
+avg 220.119843179
+mem 126.91015625
+
+=========================================
+
+At 2024-07-18 06:13:26	
+Running grenedalf/diversity-strong.sh
+  - type=sync
+  - size=7
+
+    Iteration 0
+    Time 219.166990935s
+    Mem  126.7265625Mb
+    User 646.34
+    Wall 3:39.19
+
+min 219.166990935
+max 219.166990935
+avg 219.166990935
+mem 126.7265625
+
+=========================================
+
+At 2024-07-18 06:17:07	
+Running grenedalf/diversity-strong.sh
+  - type=sync
+  - size=8
+
+    Iteration 0
+    Time 215.834381027s
+    Mem  126.6953125Mb
+    User 658.69
+    Wall 3:35.85
+
+min 215.834381027
+max 215.834381027
+avg 215.834381027
+mem 126.6953125
+
+=========================================
+
+At 2024-07-18 06:20:43	
+Running grenedalf/diversity-weak.sh
+  - type=sync
+  - size=1
+
+    Iteration 0
+    Time 31.199885572s
+    Mem  22.671875Mb
+    User 30.97
+    Wall 0:31.22
+
+min 31.199885572
+max 31.199885572
+avg 31.199885572
+mem 22.671875
+
+=========================================
+
+At 2024-07-18 06:21:16	
+Running grenedalf/diversity-weak.sh
+  - type=sync
+  - size=2
+
+    Iteration 0
+    Time 70.117398844s
+    Mem  38.45703125Mb
+    User 124.64
+    Wall 1:10.14
+
+min 70.117398844
+max 70.117398844
+avg 70.117398844
+mem 38.45703125
+
+=========================================
+
+At 2024-07-18 06:22:27	
+Running grenedalf/diversity-weak.sh
+  - type=sync
+  - size=3
+
+    Iteration 0
+    Time 85.932439072s
+    Mem  53.78515625Mb
+    User 195.13
+    Wall 1:25.95
+
+min 85.932439072
+max 85.932439072
+avg 85.932439072
+mem 53.78515625
+
+=========================================
+
+At 2024-07-18 06:23:54	
+Running grenedalf/diversity-weak.sh
+  - type=sync
+  - size=4
+
+    Iteration 0
+    Time 110.105970516s
+    Mem  68.4921875Mb
+    User 289.66
+    Wall 1:50.13
+
+min 110.105970516
+max 110.105970516
+avg 110.105970516
+mem 68.4921875
+
+=========================================
+
+At 2024-07-18 06:25:45	
+Running grenedalf/diversity-weak.sh
+  - type=sync
+  - size=5
+
+    Iteration 0
+    Time 131.846334867s
+    Mem  82.95703125Mb
+    User 385.87
+    Wall 2:11.87
+
+min 131.846334867
+max 131.846334867
+avg 131.846334867
+mem 82.95703125
+
+=========================================
+
+At 2024-07-18 06:27:58	
+Running grenedalf/diversity-weak.sh
+  - type=sync
+  - size=6
+
+    Iteration 0
+    Time 154.058329111s
+    Mem  97.91796875Mb
+    User 469.53
+    Wall 2:34.08
+
+min 154.058329111
+max 154.058329111
+avg 154.058329111
+mem 97.91796875
+
+=========================================
+
+At 2024-07-18 06:30:33	
+Running grenedalf/diversity-weak.sh
+  - type=sync
+  - size=7
+
+    Iteration 0
+    Time 186.131090125s
+    Mem  112.3203125Mb
+    User 564.57
+    Wall 3:06.15
+
+min 186.131090125
+max 186.131090125
+avg 186.131090125
+mem 112.3203125
+
+=========================================
+
+At 2024-07-18 06:33:40	
+Running grenedalf/diversity-weak.sh
+  - type=sync
+  - size=8
+
+    Iteration 0
+    Time 215.243769434s
+    Mem  127.02734375Mb
+    User 642.86
+    Wall 3:35.27
+
+min 215.243769434
+max 215.243769434
+avg 215.243769434
+mem 127.02734375
+
+=========================================
+
+At 2024-07-18 06:37:16	
+Running grenedalf/fst-strong.sh
+  - type=sync
+  - size=1
+
+    Iteration 0
+    Time 318.148823338s
+    Mem  120.2109375Mb
+    User 317.30
+    Wall 5:18.18
+
+min 318.148823338
+max 318.148823338
+avg 318.148823338
+mem 120.2109375
+
+=========================================
+
+At 2024-07-18 06:42:36	
+Running grenedalf/fst-strong.sh
+  - type=sync
+  - size=2
+
+    Iteration 0
+    Time 225.085490884s
+    Mem  122.99609375Mb
+    User 441.44
+    Wall 3:45.10
+
+min 225.085490884
+max 225.085490884
+avg 225.085490884
+mem 122.99609375
+
+=========================================
+
+At 2024-07-18 06:46:22	
+Running grenedalf/fst-strong.sh
+  - type=sync
+  - size=3
+
+    Iteration 0
+    Time 201.290935601s
+    Mem  124.40234375Mb
+    User 496.32
+    Wall 3:21.31
+
+min 201.290935601
+max 201.290935601
+avg 201.290935601
+mem 124.40234375
+
+=========================================
+
+At 2024-07-18 06:49:44	
+Running grenedalf/fst-strong.sh
+  - type=sync
+  - size=4
+
+    Iteration 0
+    Time 210.203609484s
+    Mem  124.77734375Mb
+    User 586.05
+    Wall 3:30.22
+
+min 210.203609484
+max 210.203609484
+avg 210.203609484
+mem 124.77734375
+
+=========================================
+
+At 2024-07-18 06:53:15	
+Running grenedalf/fst-strong.sh
+  - type=sync
+  - size=5
+
+    Iteration 0
+    Time 210.765469454s
+    Mem  125.49609375Mb
+    User 640.74
+    Wall 3:30.78
+
+min 210.765469454
+max 210.765469454
+avg 210.765469454
+mem 125.49609375
+
+=========================================
+
+At 2024-07-18 06:56:47	
+Running grenedalf/fst-strong.sh
+  - type=sync
+  - size=6
+
+    Iteration 0
+    Time 208.379101728s
+    Mem  125.94921875Mb
+    User 658.36
+    Wall 3:28.40
+
+min 208.379101728
+max 208.379101728
+avg 208.379101728
+mem 125.94921875
+
+=========================================
+
+At 2024-07-18 07:00:16	
+Running grenedalf/fst-strong.sh
+  - type=sync
+  - size=7
+
+    Iteration 0
+    Time 206.479731572s
+    Mem  125.67578125Mb
+    User 663.46
+    Wall 3:26.50
+
+min 206.479731572
+max 206.479731572
+avg 206.479731572
+mem 125.67578125
+
+=========================================
+
+At 2024-07-18 07:03:44	
+Running grenedalf/fst-strong.sh
+  - type=sync
+  - size=8
+
+    Iteration 0
+    Time 205.022537436s
+    Mem  126.03515625Mb
+    User 656.73
+    Wall 3:25.04
+
+min 205.022537436
+max 205.022537436
+avg 205.022537436
+mem 126.03515625
+
+=========================================
+
+At 2024-07-18 07:07:10	
+Running grenedalf/fst-weak.sh
+  - type=sync
+  - size=1
+
+    Iteration 0
+    Time 0.019411714s
+    Mem  15.74609375Mb
+    User 0.02
+    Wall 0:00.05
+
+min 0.019411714
+max 0.019411714
+avg 0.019411714
+mem 15.74609375
+
+=========================================
+
+At 2024-07-18 07:07:11	
+Running grenedalf/fst-weak.sh
+  - type=sync
+  - size=2
+
+    Iteration 0
+    Time 62.926324476s
+    Mem  37.75390625Mb
+    User 115.24
+    Wall 1:02.95
+
+min 62.926324476
+max 62.926324476
+avg 62.926324476
+mem 37.75390625
+
+=========================================
+
+At 2024-07-18 07:08:15	
+Running grenedalf/fst-weak.sh
+  - type=sync
+  - size=3
+
+    Iteration 0
+    Time 81.752586615s
+    Mem  52.97265625Mb
+    User 192.06
+    Wall 1:21.77
+
+min 81.752586615
+max 81.752586615
+avg 81.752586615
+mem 52.97265625
+
+=========================================
+
+At 2024-07-18 07:09:38	
+Running grenedalf/fst-weak.sh
+  - type=sync
+  - size=4
+
+    Iteration 0
+    Time 101.350310418s
+    Mem  67.828125Mb
+    User 280.93
+    Wall 1:41.37
+
+min 101.350310418
+max 101.350310418
+avg 101.350310418
+mem 67.828125
+
+=========================================
+
+At 2024-07-18 07:11:20	
+Running grenedalf/fst-weak.sh
+  - type=sync
+  - size=5
+
+    Iteration 0
+    Time 123.923855069s
+    Mem  82.53125Mb
+    User 379.59
+    Wall 2:03.94
+
+min 123.923855069
+max 123.923855069
+avg 123.923855069
+mem 82.53125
+
+=========================================
+
+At 2024-07-18 07:13:25	
+Running grenedalf/fst-weak.sh
+  - type=sync
+  - size=6
+
+    Iteration 0
+    Time 148.228041931s
+    Mem  97.30859375Mb
+    User 477.78
+    Wall 2:28.25
+
+min 148.228041931
+max 148.228041931
+avg 148.228041931
+mem 97.30859375
+
+=========================================
+
+At 2024-07-18 07:15:54	
+Running grenedalf/fst-weak.sh
+  - type=sync
+  - size=7
+
+    Iteration 0
+    Time 177.223705621s
+    Mem  111.59375Mb
+    User 579.41
+    Wall 2:57.25
+
+min 177.223705621
+max 177.223705621
+avg 177.223705621
+mem 111.59375
+
+=========================================
+
+At 2024-07-18 07:18:53	
+Running grenedalf/fst-weak.sh
+  - type=sync
+  - size=8
+
+    Iteration 0
+    Time 208.218771947s
+    Mem  126.27734375Mb
+    User 673.23
+    Wall 3:28.24
+
+min 208.218771947
+max 208.218771947
+avg 208.218771947
+mem 126.27734375
+

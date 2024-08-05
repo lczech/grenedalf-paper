@@ -57,17 +57,19 @@ START=$(date +%s.%N)
 
 $GRENEDALF diversity \
     ${INPATHS} \
-    --window-type sliding \
-    --window-sliding-width 1000 \
+    --window-type genome \
     --filter-sample-min-count 2 \
-    --filter-sample-min-coverage 4 \
-    --filter-sample-max-coverage 1000 \
+    --filter-sample-min-read-depth 4 \
+    --filter-sample-max-read-depth 1000 \
+    --window-average-policy valid-snps \
     --pool-sizes 100 \
     --out-dir "diversity-${scaling}" \
     --file-suffix "-${OUT}" \
     --threads ${size} \
     --allow-file-overwriting \
     > "logs/diversity-${OUT}.log" 2>&1
+
+#     --window-interval-width 1000 \
 
 END=$(date +%s.%N)
 DIFF=$(echo "$END - $START" | bc)
