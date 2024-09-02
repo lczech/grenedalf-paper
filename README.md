@@ -1,6 +1,10 @@
 # grenedalf-paper
 
-Code for tests and benchmarks of the paper on our tool [grenedalf](https://github.com/lczech/grenedalf)
+Code for tests and benchmarks of the paper on our tool [grenedalf](https://github.com/lczech/grenedalf):
+
+> grenedalf: population genetic statistics for the next generation of pool sequencing.<br />
+> Lucas Czech, Jeffrey P. Spence, Moisés Expósito-Alonso.<br />
+> Bioinformatics, 2024. doi:[10.1093/bioinformatics/btae508](https://doi.org/10.1093/bioinformatics/btae508)
 
 We here provide tests scripts to benchmark [grenedalf](https://github.com/lczech/grenedalf) against existing tools:
 
